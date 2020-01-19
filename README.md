@@ -1,2 +1,2 @@
 # gogolang.co
-golang web project
+1st golang web project
