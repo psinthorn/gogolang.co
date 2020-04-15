@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	services "github.com/psinthorn/gogolang.co/services/users"
 )
 
 type users struct{}
@@ -17,7 +16,7 @@ func (u *users) CreateUser(c *gin.Context) {
 
 func (u *users) GetUser(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "Implement me Please")
-	services.Users.GetUser(user_id)
+
 }
 
 func (u *users) SearchUser(c *gin.Context) {
