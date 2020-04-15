@@ -1,9 +1,9 @@
 package main
 
-func main() {
-	Hello()
-}
+import "github.com/psinthorn/gogolang.co/app"
 
 func Hello() string {
-	return "Hello go"
+
+	app.StartApp()
+
 }
