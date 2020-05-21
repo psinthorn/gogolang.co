@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/psinthorn/gogolang.co/utils"
+	"github.com/psinthorn/gogolang.co/configs"
 )
 
 var (
@@ -10,7 +10,7 @@ var (
 )
 
 func StartApp() {
-	port := utils.Server.RunningPort()
+	router.LoadHTMLGlob("views/*/*")
 	urlsMapping()
-	router.Run(":" + port)
+	router.Run(":" + configs.ServerPort.PortSelector("8090"))
 }

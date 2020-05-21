@@ -9,6 +9,4 @@ func urlsMapping() {
 	router.GET("/ping", ping.Pong)
 	router.POST("/users", controllers.Users.CreateUser)
 	router.GET("/users/:user_id", controllers.Users.GetUser)
-
-	router.GET("/")
 }
