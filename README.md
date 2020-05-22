@@ -12,9 +12,16 @@ Development 1st golang web project for Beginner to Deployment
 # โครงสร้างโฟเดอร์และไฟล์ระบบ
 ## Structure MVC Microservices
 
-# เริ่มต้น Http Server
+# เริ่มต้นสร้าง Http Server โดย Gin-Gonic
 ## Getting Start
+
+## สั่ง start http server 
 ## Start Server
+```
+    $ go run main.go
+
+```
+
 
 ## We're use Getenv to check and get current server port running by using function below.
 
