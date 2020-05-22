@@ -11,6 +11,23 @@ Development 1st golang web project for Beginner to Deployment
 
 ## โครงสร้างโฟเดอร์และไฟล์ระบบ
 ### Structure MVC Microservices
+### Folders Structure
+    -----
+        |- app
+        |- configs
+        |- controlleers
+        |- datasources
+        | |- database-name-folder
+        | |- ...
+        |- models
+        |- services
+        | |- services-name-folder 
+        |- utils
+        |- views
+        - main.go
+        -
+    -----
+  
 
 ## เริ่มต้นสร้าง Http Server โดย Gin-Gonic
 ### Getting Start
@@ -39,11 +56,6 @@ Development 1st golang web project for Beginner to Deployment
  go mod init github.com/your_github_usernams/your_repos
 
  ```
-## Folders Structure
-    -----
-        |- app
-        |- 
-  
 
 ## Templates 
 ### How to set glbal templates
