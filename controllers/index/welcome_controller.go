@@ -11,5 +11,5 @@ type indexPage struct{}
 var IndexPage indexPage
 
 func (i *indexPage) Welcome(c *gin.Context) {
-	c.HTML(http.StatusOK, "/welcome/index.html", nil)
+	c.HTML(http.StatusOK, "index.html", nil)
 }

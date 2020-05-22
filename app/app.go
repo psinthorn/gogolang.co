@@ -10,7 +10,7 @@ var (
 )
 
 func StartApp() {
-	router.LoadHTMLGlob("views/*/*")
+	router.LoadHTMLGlob("views/*/*.html")
 	urlsMapping()
 	router.Run(":" + configs.ServerPort.PortSelector("8090"))
 }
