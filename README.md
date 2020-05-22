@@ -9,21 +9,20 @@ Development 1st golang web project for Beginner to Deployment
 > GoGolang.co I used it as a learning webapplication development from beginner to deployment by golang  following MVC microserivces structure. And i will try to write every details on the way of my learning. May it can benefit to someone that start to learn golang web development like me. Go for golang and enjoys with Go :) 
 
 
-# โครงสร้างโฟเดอร์และไฟล์ระบบ
-## Structure MVC Microservices
+## โครงสร้างโฟเดอร์และไฟล์ระบบ
+### Structure MVC Microservices
 
-# เริ่มต้นสร้าง Http Server โดย Gin-Gonic
-## Getting Start
+## เริ่มต้นสร้าง Http Server โดย Gin-Gonic
+### Getting Start
 
-## สั่ง start http server 
-## Start Server
+### สั่ง start http server 
+### Start Server
 ```
     $ go run main.go
-
 ```
 
 
-## We're use Getenv to check and get current server port running by using function below.
+### We're use Getenv to check and get current server port running by using function below.
 
 ```golang
     func (s *server) PortRunning() string {
@@ -40,29 +39,29 @@ Development 1st golang web project for Beginner to Deployment
  go mod init github.com/your_github_usernams/your_repos
 
  ```
-# Folders Structure
+## Folders Structure
     -----
         |- app
         |- 
   
 
-# Templates 
-## How to set glbal templates
+## Templates 
+### How to set glbal templates
 
-## Template Nested Template
+### Template Nested Template
 
-# Database Section
-## Connect to databse 
+## Database Section
+### Connect to databse 
 
 *** What is dufferrent about PUT and PATCH ***
 - PUT needs all fields data input to update otherwise will update no data input fileds to blank.
 - PATCH will update only a field that have data input and remain other fiedls data as the same.
 
-# Golang Online Course Suggestion
-## Beginner
-## Web Deployment
-## Algorythm
+## Golang Online Course Suggestion
+### Beginner
+### Web Deployment
+### Algorythm
 
-# Golang Book Suggestion 
-## Learning Go by testing 
+## Golang Book Suggestion 
+### Learning Go by testing 
 
