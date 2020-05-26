@@ -9,4 +9,5 @@ func urlsMapping() {
 	// router.POST("/users", controllers.Users.CreateUser)
 	// router.GET("/users/:user_id", controllers.Users.GetUser)
 	router.GET("/", controllers.IndexPage.Welcome)
+	router.GET("/about", controllers.IndexPage.About)
 }

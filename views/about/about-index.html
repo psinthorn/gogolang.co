@@ -38,10 +38,10 @@
   </head>
 
   <body>
-    {{ template "navbar.html" .}} {{ template "about-content.html" .}}
-    {{template "footer.html" .}}
-
-    <!-- bootstrap js dependencies  -->
-    {{ template "footer-script.html" .}}
+    {{ template "navbar.html" .}}
+    <main role="main" class="container">
+      {{ template "about-content.html" .}}
+    </main>
+    {{template "index-footer.html" .}}
   </body>
 </html>
