@@ -4,10 +4,5 @@ type users struct{}
 
 var Users users
 
-func (u *users) CreateUser() {
-
+func (u *users) CreateUser() (*users, err) {
 }
-
-// func (u *users) GetUser() {
-
-// }
