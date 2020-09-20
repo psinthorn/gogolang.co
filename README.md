@@ -18,6 +18,26 @@ Development 1st golang web project for Beginner to Deployment
 
     -----
         |- app
+        |- assets
+            |-css
+                |-style.css
+            |-images
+            |-sass
+                |- abstracts
+                    |- _functions.scss
+                    |- _mixins.scss
+                    |- _variables.scss
+                |- base
+                    |- _animations.scss
+                    |- _base.scss
+                    |- _typography.scss
+                    |- _utilities.scss
+                |- components
+                    |- 
+                    |-
+                    |-
+                |- layout
+                |- pages
         |- configs
         |- controlleers
         |- datasources
@@ -71,14 +91,18 @@ go mod init github.com/your_github_username/your_repo_name
     $ npm install node-sass --save-dev
     $ npm install jquery --save
 ```
-add script command to compile sass by add line below package.json and auto watching and auto compile when make any change to files.
+#### Add script command to compile sass by add line below package.json and auto watching and auto compile when make any change to files.
+
+#### เพิ่ม node-sass เพื่อช่วยเพิ่มประสิทธิภาพและยืดหยุ่นในการเขียน css รวมถึงการคอมพลายแบบอัตโนมัติเมื่อมีการเขียนเพิ่มหรือลดโค้ด โดยใช้คำสั่ง -w 
 
 ```
     "scripts": {
         "compile:sass": "node-sass ./assets/sass/main.scss ./assets/css/style.css -w"
     }
 ```
-Run compile command during development 
+#### Run compile command during development 
+
+#### คำสั่งในการคอมพลาย sass ไปเป็น css 
 
 ```
     $ npm run compile:sass

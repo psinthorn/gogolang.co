@@ -1,0 +1,28 @@
+.section-social {
+    background-color: $color-grey-light;
+    padding: 15rem;
+
+    .social {
+            padding: 2.5rem;
+
+            &-title {
+                font-size: 1.6rem;
+                text-align: center;
+
+            }
+        
+            &-icons {
+            
+                transition: all .5s;
+                font-size: 8rem;
+                font-weight: 900;
+                display: inline-block;
+                text-align: right;
+                //background-color: grey;
+                // padding-right: 3rem;
+                &:hover {
+                    transform: translateY(-1rem) scale(1.05);
+                }  
+            }
+        }
+    }

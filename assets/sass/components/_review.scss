@@ -1,0 +1,76 @@
+.section-review {
+    position: relative;
+    padding: 15rem 0;
+    //background-color: $color-grey-light-1;
+    
+}
+
+.review {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color: #000000, $alpha: .1);
+    background-color: rgba($color: $color-white, $alpha: 1);
+    border-radius: .3rem;
+    padding: 6rem;
+    padding-left: 9rem;
+
+    transform: skewX(-12deg);
+    
+
+    &-shape {
+        width: 13rem;
+        height: 13rem;
+        background-color: orangered;
+        float: left;
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%);
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+        transform: translateX(-3rem) skew(12deg);
+
+        position: relative;
+
+    }
+
+    &-img {
+        height: 100%;
+        transform: scale(2);
+        transition: all .8s;
+
+        //Stop transition chaking at the end.
+        backface-visibility: hidden;
+
+    }
+
+    &-text {
+        transform: skew(12deg);
+    }
+
+    &-caption {
+        position: absolute;
+        font-size: 1.7rem;
+        color: $color-white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 10%);
+        text-align: center;
+        text-transform: uppercase;
+
+        opacity: 0;
+        transition: all .8s;
+
+        //Stop transition chaking at the end.
+        backface-visibility: hidden;
+
+    }
+
+    &:hover &-caption {
+         transform: translate(-50%, -50%);
+         opacity: 1;
+    }
+
+    &:hover &-img {
+        transform: scale(1);
+        filter: blur(3px) brightness(80%);
+    }
+}

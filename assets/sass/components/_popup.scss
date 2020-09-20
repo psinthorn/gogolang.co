@@ -1,0 +1,102 @@
+.popup {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba($color-black, .8);
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+
+ 
+    &-content{
+        width: 75%;
+        border-radius: .3rem;
+        background-color: $color-white;
+        box-shadow: 0 2rem 4rem rgba($color: #000000, $alpha: .2);
+        display: table;
+        overflow: hidden;
+
+        @include absoluteCenter;
+
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+        transition: all .5s .2s;
+    }
+
+    &-left {
+        width: 33.333333%;
+        display: table-cell;
+        
+    }
+
+    &-right {
+        width: 66.6666667%;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 3rem 5rem;
+    }
+
+    &-img {
+        display: block;
+        width: 100%;
+        opacity: .8;
+        transition: all .5s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &-text {
+        font: 1.4rem;
+        text-align: left;
+        padding-bottom: 4rem;
+
+        -moz-column-count: 2;
+        -moz-column-gap: 4rem;
+        -moz-column-rule: 1px solid $color-grey;
+
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid $color-grey;
+
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+
+        hyphens: auto;
+    }
+
+    //Open popup state
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+     &:target &-content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &-close {
+        &:link,
+        &:visited {
+            font-size: 3rem;
+            color: $color-grey;
+            position: absolute;
+            top: 2rem;
+            right: 2.5rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all .2s;
+        }
+
+        &:hover {
+            color: $color-primary-red;
+        }
+    }
+
+}
