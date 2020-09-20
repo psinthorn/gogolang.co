@@ -65,6 +65,26 @@ go mod init github.com/your_github_username/your_repo_name
 
 ## Templates
 
+## install node-sass and jquery  
+```
+    $ npm init
+    $ npm install node-sass --save-dev
+    $ npm install jquery --save
+```
+add script command to compile sass by add line below package.json and auto watching and auto compile when make any change to files.
+
+```
+    "scripts": {
+        "compile:sass": "node-sass ./assets/sass/main.scss ./assets/css/style.css -w"
+    }
+```
+Run compile command during development 
+
+```
+    $ npm run compile:sass
+
+```
+
 ### How to set glbal templates
 
 ### Template Nested Template
