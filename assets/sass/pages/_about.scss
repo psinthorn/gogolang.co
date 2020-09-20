@@ -1,0 +1,12 @@
+.section-about {
+    //background-image: url(./../img/samui-birds-nest-ingredient.jpg);
+    background-color: $color-grey-light;
+    padding: 15rem;
+    background-size: cover;
+    //height: 100vh;
+
+    @include respond(tabletport){
+        padding: 5rem;
+    }
+
+}

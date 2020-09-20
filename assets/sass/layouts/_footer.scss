@@ -1,0 +1,80 @@
+
+.footer {
+    font-size: 1.4rem;
+    padding: 10rem;
+    background-color: $color-grey-dark-1;
+
+     @include respond(tabletport) {
+           text-align: center;
+           padding: 5rem;
+       }
+
+    
+
+    &-logo-box {
+        text-align: center;
+        margin-bottom: 8rem;
+    }
+
+    &-logo {
+        width: 15rem;
+        height: auto;
+    }
+
+    &-navigation {
+        border-top: 1px solid $color-grey;
+        padding-top: 2rem;
+        display: inline-block;
+        float: right;
+        //float: right;
+
+         &-list {
+        list-style: none;  
+        padding-left: 0;
+
+    }
+        &-item {
+            display: inline-block;
+            &:not(:last-child){
+                margin-right: 2rem;
+            }
+        }
+        
+        &-link {
+
+            &:visited,
+            &:link {
+                text-decoration: none;
+                color: $color-grey-light-1;
+                text-transform: uppercase;
+                display: inline-block;
+                transition: all .5s;
+            }
+            &:hover {
+                color: $color-primary-yellow-light;
+                box-shadow: 0 1rem 2rem rgba($color: $color-black, $alpha: 0.3);
+            }
+            &:active {
+                color: $color-primary-gold-dark;
+                transform: translateY(.3rem);
+            }  
+        }
+
+       
+       
+    }
+
+   
+    &-copyright {
+        float: right;
+        border-top: 1px solid $color-grey;
+        padding-top: 2rem;
+        width: 95%;
+       // display: inline-block;
+
+       @include respond(tabletport) {
+           text-align: center;
+           border-top: 0px solid $color-grey;
+       }
+    }
+}

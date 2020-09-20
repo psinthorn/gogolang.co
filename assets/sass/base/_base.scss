@@ -1,0 +1,41 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    border: 0;
+    box-sizing: inherit;
+
+}
+
+html {
+    font-size: 62.5%; // need to scale to 1rem = 10px then 10px/16px = 62.5%
+
+     @include respond(tabletland){
+        font-size: 56.25%; // need 1rem = 9px then 9/16 = 56.25%
+    }
+
+    @include respond(tabletport){
+        font-size: 50%; // need 1rem = 8px then 8/16 = 50%
+    }
+
+     @include respond(phone){
+        font-size: 40%;
+    }
+
+    @include respond(larger){
+        font-size: 75%; // need 1rem = 12 then 12/16 = 75%
+    }
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    // font-size: 1.6rem;
+    line-height: 1.7;
+    color: $color-grey;
+    box-sizing: border-box;
+
+    @include respond(tabletport) {
+        padding: 0;
+    }
+}

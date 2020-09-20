@@ -1,0 +1,72 @@
+/* why page */
+.height--100 {
+    height: 100vh;
+}
+
+.u-center-text {
+    text-align: center;
+}
+
+.u-mt-sm {
+    margin-top: 1.5rem;
+}
+
+.u-mt-md {
+    margin-top: 4rem;
+}
+.u-mt-lg {
+    margin-top: 8rem;
+}
+
+.u-mb-sm {
+    margin-bottom: 1.5rem;
+}
+
+.u-mb-md {
+    margin-bottom: 4rem;
+}
+.u-mb-lg {
+    margin-bottom: 8rem;
+}
+
+.u-pt-sm {
+    padding-top: 1.5rem;
+}
+
+.u-pt-md {
+    padding-top: 4rem;
+}
+.u-pt-lg {
+    padding-top: 8rem;
+}
+
+.u-pb-sm {
+    padding-bottom: 1.5rem;
+}
+
+.u-pb-md {
+    padding-bottom: 4rem;
+}
+.u-pb-lg {
+    padding-bottom: 8rem;
+}
+
+.bg-clippath-5025 {
+    height: 100vh;
+    // background-image: linear-gradient(to right, rgba($color-grey-light-1), rgba($color-color-grey));
+    background-image: url(./../img/samui-birds-nest-bg-bl-03.png);
+     background-size: cover;
+    background-position: top;
+    position: relative;
+    // height: 100vh;
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 25% 100%)
+    // clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100% );
+}
+
+.bg-grey-blur {
+    backdrop-filter: blur(10x);
+    background-color: rgba(255, 255, 255 , 0.4);
+}
+
+
+
