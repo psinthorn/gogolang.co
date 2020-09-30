@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/psinthorn/F2Go/domain/users"
+	"github.com/psinthorn/gogolang.co/domain/users"
 	services "github.com/psinthorn/gogolang.co/services/users"
 )
 
@@ -13,7 +13,7 @@ func Create(c *gin.Context) {
 	var user users.User
 	if err := c.ShouldBindJSON(user); err != nil {
 
-		restError := restError{
+		restError := utils.restError{
 			Message:    "Invalid Json Body",
 			StatusCode: http.StatusBadRequest,
 			Error:      "bad_request",
