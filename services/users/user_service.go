@@ -1,8 +1,7 @@
 package services
 
-type users struct{}
+import "github.com/psinthorn/gogolang.co/domain/users"
 
-var Users users
-
-func (u *users) CreateUser() (*users, err) {
+func CreateUser(user users.User) (*users.User, error) {
+	return &user, nil
 }

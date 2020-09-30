@@ -1,4 +1,4 @@
-package domain
+package users
 
 type User struct {
 	Id        uint64 `json:"id"`

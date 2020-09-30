@@ -44,5 +44,4 @@ func init() {
 		panic(err)
 	}
 	log.Println("Database connect successfully ")
-
 }

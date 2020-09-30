@@ -1,32 +1,59 @@
-package controllers
+package users
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/psinthorn/F2Go/domain/users"
+	services "github.com/psinthorn/gogolang.co/services/users"
 )
 
-type users struct{}
+func Create(c *gin.Context) {
 
-var Users users
+	var user users.User
+	if err := c.ShouldBindJSON(user); err != nil {
+		// Handle error
+		// and return bad error to caller
+		return
+	}
 
-func (u *users) CreateUser(c *gin.Context) {
+	result, saveErr := services.CreateUser(user)
+	if saveErr != nil {
+		//Handle Error
+		// and return bad request to caller
+	}
+	c.JSON(http.StatusCreated, result)
+	//c.String(http.StatusNotImplemented, "Implement me Please")
+
+	// Traditional How to read data from request input
+	// bytes, err := ioutil.ReadAll(c.Request.Body)
+	// if err != nil {
+	// 	// TODO: handle error if err not nil
+	// 	return
+	// }
+
+	// Traditional how to bind data to data model
+	// if err := json.Unmarshal(bytes, &user); err != nil {
+	// 	fmt.Println(err.Error())
+	// 	//TODO: handle error if err not nil
+	// 	return
+	// }
+
+}
+
+func Get(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "Implement me Please")
+
+}
+
+func Search(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "Implement me Please")
 }
 
-func (u *users) GetUser(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
-
-}
-
-func (u *users) SearchUser(c *gin.Context) {
+func Update(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "Implement me Please")
 }
 
-func (u *users) UpdateUser(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
-}
-
-func (u *users) DelleteUser(c *gin.Context) {
+func Delete(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "Implement me Please")
 }

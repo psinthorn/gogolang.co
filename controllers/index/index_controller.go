@@ -1,4 +1,4 @@
-package controllers
+package index
 
 import (
 	"net/http"
@@ -6,14 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type indexPage struct{}
-
-var IndexPage indexPage
-
-func (i *indexPage) Welcome(c *gin.Context) {
+func Welcome(c *gin.Context) {
 	c.HTML(http.StatusOK, "welcome-index.html", nil)
 }
 
-func (i *indexPage) About(c *gin.Context) {
+func About(c *gin.Context) {
 	c.HTML(http.StatusOK, "about-index.html", nil)
 }
