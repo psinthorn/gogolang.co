@@ -1,4 +1,4 @@
-package utils
+package errors
 
 import (
 	"net/http"
@@ -6,12 +6,9 @@ import (
 	models "github.com/psinthorn/gogolang.co/domain/errors"
 )
 
-// type RestError struct {
-// 	Id         string `json: "id"`
-// 	Message    string `json: "message"`
-// 	StatusCode int    `json: "status_code"`
-// 	Error      string `json: "error"`
-// }
+//
+// Error model type locate at domain/errors/error_dto.go
+//
 
 func NewBadRequestError(message string) *models.ErrorRespond {
 

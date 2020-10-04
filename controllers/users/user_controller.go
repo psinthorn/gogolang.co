@@ -6,24 +6,30 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/psinthorn/gogolang.co/domain/users"
 	services "github.com/psinthorn/gogolang.co/services/users"
-	utils "github.com/psinthorn/gogolang.co/utils/errors"
+	"github.com/psinthorn/gogolang.co/utils/errors"
 )
 
 func Create(c *gin.Context) {
 
 	var user users.User
+
 	if err := c.ShouldBindJSON(&user); err != nil {
-		restError := utils.NewBadRequestError("In valid Json")
+		restError := errors.NewBadRequestError("In valid Json")
 		c.JSON(restError.StatusCode, restError)
 		return
 	}
 
-	result, saveErr := services.CreateUser(user)
-	if saveErr != nil {
+	if err := user.Validate(); err != nil {
+		c.JSON(err.StatusCode, err)
+		return
+	}
+
+	result, saveError := services.CreateUser(user)
+	if saveError != nil {
 
 		//Handle Error
 		// and return bad request to caller
-		c.JSON(saveErr.StatusCode, saveErr)
+		c.JSON(saveError.StatusCode, saveError)
 		return
 
 	}
