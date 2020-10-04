@@ -1,4 +1,4 @@
-package ping
+package controllers
 
 import (
 	"net/http"
@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Pong(c *gin.Context) {
+type ping struct{}
+
+var Ping ping
+
+func (p *ping) Pong(c *gin.Context) {
 	c.String(http.StatusOK, "Pong")
 }
