@@ -1,0 +1,163 @@
+.heading-primary {
+    color: $color-white;
+    text-transform: uppercase;
+
+    backface-visibility: hidden;
+     margin-bottom: 3.5rem;
+
+     @include respond(tabletport) {
+         margin-top: 8rem;
+     }
+
+     &--main {
+    display: block;
+    font-size: 4.5rem;
+    font-weight: 700;
+    letter-spacing: 2rem;
+
+     display: inline-block;
+        background-image: linear-gradient(to right, $color-primary-yellow-light, $color-primary-gold-dark);
+        -webkit-background-clip: text;
+        color: transparent;
+
+    animation-name: moveInLeft;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+
+    @include respond(tabletport) {
+        font-size: 3rem;
+        letter-spacing: 1rem;
+     }
+
+    @include respond(phone) {
+        font-size: 2.5rem;
+        letter-spacing: .3rem;
+     }
+    
+
+    /* animation-delay: 1s; */
+
+    }
+    &--sub {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 400;
+        letter-spacing: 1.2rem;
+
+        @include respond(tabletport) {
+        font-size: 2rem;
+        letter-spacing: .5rem;
+     }
+
+        @include respond(phone) {
+        font-size: 1rem;
+        letter-spacing: .2rem;
+     }
+    
+
+        /* use short animation */
+        animation: moveInRight 2s ease-out;
+
+        /* Use original animation  */
+        /* animation-name: moveInRight;
+        animation-duration: 2s;
+        animation-timing-function: ease-out; */
+
+        /* animation-delay: 1s; */
+    }
+
+    &-title--golden {
+        color: $color-primary-gold-dark;
+        font-size: 4rem;
+        font-weight: 700;
+        letter-spacing: 1rem;
+
+        display: inline-block;
+        background-image: linear-gradient(to right, $color-primary-yellow-light, $color-primary-gold-dark);
+        -webkit-background-clip: text;
+        color: transparent;
+        
+        transition: all .2s;
+
+        @include respond(phone) {
+        font-size: 3.5rem;
+        letter-spacing: .3rem;
+     }
+
+        &:hover {
+            transform: skewY(2deg);
+        }
+    
+    }
+
+     &-title-sub--golden {
+        display: block;
+        color: $color-primary-gold-dark;
+        font-size: 3rem;
+        font-weight: 300;
+        letter-spacing: 1rem;
+
+        @include respond(phone) {
+        font-size: 2.5rem;
+        letter-spacing: .3rem;
+     }
+
+
+    
+    }
+
+     &-title--red {
+        color: $color-primary-gold-dark;
+        font-size: 4rem;
+        font-weight: 700;
+        letter-spacing: 1rem;
+
+        display: inline-block;
+        background-image: linear-gradient(to right, $color-primary-yellow-light, $color-primary-red);
+        -webkit-background-clip: text;
+        color: transparent;
+        
+        transition: all .2s;
+
+        &:hover {
+            transform: skewY(2deg);
+        }
+    
+    }
+
+}
+
+.heading-tertiary {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.paragraph {
+    font-size: 1.6rem;
+    
+    &:not(:last-child){
+        margin-bottom: 8rem;
+    }
+}
+
+
+.why {
+
+    &__image--left {
+    /* box-sizing: border-box; */
+    /* background-image: url(./../img/samui-birds-nest-package.png);
+    background-size: cover; */
+    background-repeat: no-repeat;
+    }
+
+    &__text--right {
+        box-sizing: border-box;
+        color: $color-black;
+        background-color:$color-grey;
+        width: 25rem;
+        
+    }
+}
+
+
