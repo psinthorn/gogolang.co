@@ -2,6 +2,7 @@ package users
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/psinthorn/gogolang.co/domain/users"
@@ -9,6 +10,9 @@ import (
 	"github.com/psinthorn/gogolang.co/utils/errors"
 )
 
+//
+// Create new user
+//
 func Create(c *gin.Context) {
 
 	var user users.User
@@ -51,8 +55,24 @@ func Create(c *gin.Context) {
 
 }
 
+//
+// Get user by ID
+//
 func Get(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
+	userId, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	if err != nil {
+		restErr := errors.NewBadRequestError("user id must be a number")
+		c.JSON(restErr.StatusCode, restErr)
+		return
+	}
+
+	user, getErr := services.GetUser(userId)
+	if getErr != nil {
+		c.JSON(getErr.StatusCode, getErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
 
 }
 

@@ -11,10 +11,17 @@ import (
 //
 
 func NewBadRequestError(message string) *models.ErrorRespond {
-
 	return &models.ErrorRespond{
 		Message:    message,
 		StatusCode: http.StatusBadRequest,
 		Error:      "bad_request",
+	}
+}
+
+func NewNotFoundError(message string) *models.ErrorRespond {
+	return &models.ErrorRespond{
+		Message:    message,
+		StatusCode: http.StatusNotFound,
+		Error:      "not_found",
 	}
 }
