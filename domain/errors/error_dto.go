@@ -1,4 +1,4 @@
-package models
+package errors
 
 type ErrorRespond struct {
 	//Id         string `json: "id"`

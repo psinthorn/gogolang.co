@@ -3,7 +3,7 @@ package users
 import (
 	"strings"
 
-	models "github.com/psinthorn/gogolang.co/domain/errors"
+	"github.com/psinthorn/gogolang.co/domain/errors"
 	"github.com/psinthorn/gogolang.co/utils/errors"
 )
 
@@ -25,7 +25,7 @@ type User struct {
 // จัดการจัดช่องว่างหน้าและหลังอีเมล์
 // ทำให้อีเมล์เป็นอักษรตัวเล็ก
 
-func (user *User) Validate() *models.ErrorRespond {
+func (user *User) Validate() *errors.ErrorRespond {
 	user.Email = strings.TrimSpace(strings.ToLower(user.Email))
 	if user.Email == "" {
 		err := errors.NewBadRequestError("Invalid Email Address")

@@ -10,7 +10,7 @@ Development 1st golang web project for Beginner to Deployment
 
 > GoGolang.co I used it as a learning webapplication development from beginner to deployment by golang following MVC microserivces structure. And i will try to write every details on the way of my learning. May it can benefit to someone that start to learn golang web development like me. Go for golang and enjoys with Go :)
 
-## โครงสร้างโฟเดอร์และไฟล์ระบบ MVC
+## โครงสร้างโฟเดอร์และไฟล์ระบบ MVC Microservices
 
 ### Structure MVC Microservices
 
@@ -18,6 +18,8 @@ Development 1st golang web project for Beginner to Deployment
 
     -----
         |- app
+            |- app.go
+            |- urls_mapping.go
         |- assets
             |-css
                 |-style.css
@@ -33,23 +35,53 @@ Development 1st golang web project for Beginner to Deployment
                     |- _typography.scss
                     |- _utilities.scss
                 |- components
-                    |- 
-                    |-
-                    |-
+                    |- component_name.scss
+                    |- ...
                 |- layout
+                    |- layout_name.scss
+                    |- ...
                 |- pages
+                    |- page_name.scss
+                    |- ...
+                main.scss
         |- configs
-        |- controlleers
+            |- server_port_selector.go
+            |- ...
+        |- controllers
+            |- controller-folder-name
+                |- controller_name.go
+                |- ...
+            |- ...
         |- datasources
         | |- database-name-folder
+            |- database_name.go
+            |- ...
         | |- ...
         |- models
+            |- models-folder-name
+                |- model_name.dao
+                |- model_anme.dto
         |- services
         | |- services-name-folder
+            |- service_name.go
+            |- ...
         |- utils
+            |- utils_folder_name
+                |- utils_name.go
+                |- ...
+            |- ...
         |- views
+            |- views-folder-name
+                |- views_file_name.html
+                |- ...
+            |- ...
         - main.go
-        -
+        - .gitignore
+        - go.mod
+        - go.sum
+        - package.json
+        - package-lock.json
+        - README.md
     -----
 
 ## เริ่มต้นสร้าง Http Server โดย Gin-Gonic
