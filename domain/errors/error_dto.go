@@ -13,7 +13,7 @@ type ErrorRespond struct {
 // Error model type locate at domain/errors/error_dto.go
 //
 
-func NewBadRequestError(message string) *errors.ErrorRespond {
+func NewBadRequestError(message string) *ErrorRespond {
 	return &errors.ErrorRespond{
 		Message:    message,
 		StatusCode: http.StatusBadRequest,
@@ -21,7 +21,7 @@ func NewBadRequestError(message string) *errors.ErrorRespond {
 	}
 }
 
-func NewNotFoundError(message string) *errors.ErrorRespond {
+func NewNotFoundError(message string) *ErrorRespond {
 	return &errors.ErrorRespond{
 		Message:    message,
 		StatusCode: http.StatusNotFound,
@@ -29,7 +29,7 @@ func NewNotFoundError(message string) *errors.ErrorRespond {
 	}
 }
 
-func NewContentAlertNotice(message string) *errors.ErrorRespond {
+func NewContentAlertNotice(message string) *ErrorRespond {
 	return &errors.ErrorRespond{
 		Message:    message,
 		StatusCode: http.StatusNoContent,
