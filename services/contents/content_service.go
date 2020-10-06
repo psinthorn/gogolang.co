@@ -1,4 +1,4 @@
-package contents
+package services
 
 import (
 	"github.com/psinthorn/gogolang.co/domain/contents"
@@ -9,20 +9,24 @@ import (
 // Service connect to data access object (dao) work with data method on each request operation
 //
 
-func Create(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
+func CreateContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
+	if err := content.Create(); err != nil {
+		return nil, err
+	}
+
+	return &content, nil
+
+}
+
+func GetContent(id int64) (*contents.Content, *errors.ErrorRespond) {
 
 	return nil, nil
 }
 
-func Get(id int64) (*contents.Content, *errors.ErrorRespond) {
-
+func UpdateContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
 	return nil, nil
 }
 
-func Update(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
-	return nil, nil
-}
-
-func Delete(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
+func DeleteContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
 	return nil, nil
 }

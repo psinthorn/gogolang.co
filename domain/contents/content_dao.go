@@ -1,6 +1,6 @@
 package contents
 
-import models "github.com/psinthorn/gogolang.co/domain/errors"
+import "github.com/psinthorn/gogolang.co/domain/errors"
 
 var (
 	contentDB = make(map[int64]*Content)
@@ -9,14 +9,15 @@ var (
 //
 // Get content by ID
 //
-func (content *Content) Get() (*Content, *models.ErrorRespond) {
-	return nil, nil
+func (content *Content) Get() *errors.ErrorRespond {
+	return nil
 }
 
 //
 // Create new content
 //
 
-func (content *Content) Create() (*Content, *models.ErrorRespond) {
-	return nil, nil
+func (content *Content) Create() *errors.ErrorRespond {
+	contentDB[content.Id] = content
+	return nil
 }

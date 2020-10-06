@@ -5,10 +5,9 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/psinthorn/gogolang.co/domain/users"
 	"github.com/psinthorn/gogolang.co/domain/errors"
+	"github.com/psinthorn/gogolang.co/domain/users"
 	services "github.com/psinthorn/gogolang.co/services/users"
-	
 )
 
 //
@@ -19,7 +18,7 @@ func Create(c *gin.Context) {
 	var user users.User
 
 	if err := c.ShouldBindJSON(&user); err != nil {
-		restError := errors.NewBadRequestError("In valid Json")
+		restError := errors.NewBadRequestError("invalid json body")
 		c.JSON(restError.StatusCode, restError)
 		return
 	}
