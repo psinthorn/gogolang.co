@@ -14,7 +14,7 @@ type ErrorRespond struct {
 //
 
 func NewBadRequestError(message string) *ErrorRespond {
-	return &errors.ErrorRespond{
+	return &ErrorRespond{
 		Message:    message,
 		StatusCode: http.StatusBadRequest,
 		Error:      "bad_request",
@@ -22,7 +22,7 @@ func NewBadRequestError(message string) *ErrorRespond {
 }
 
 func NewNotFoundError(message string) *ErrorRespond {
-	return &errors.ErrorRespond{
+	return &ErrorRespond{
 		Message:    message,
 		StatusCode: http.StatusNotFound,
 		Error:      "not_found",
@@ -30,7 +30,7 @@ func NewNotFoundError(message string) *ErrorRespond {
 }
 
 func NewContentAlertNotice(message string) *ErrorRespond {
-	return &errors.ErrorRespond{
+	return &ErrorRespond{
 		Message:    message,
 		StatusCode: http.StatusNoContent,
 		Error:      "no_content",
