@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/psinthorn/gogolang.co/domain/users"
+	"github.com/psinthorn/gogolang.co/domain/errors"
 	services "github.com/psinthorn/gogolang.co/services/users"
 	
 )

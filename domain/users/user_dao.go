@@ -3,7 +3,7 @@ package users
 import (
 	"fmt"
 
-	models "github.com/psinthorn/gogolang.co/domain/errors"
+	"github.com/psinthorn/gogolang.co/domain/errors"
 	
 )
 
@@ -11,7 +11,7 @@ var (
 	usersDB = make(map[int64]*User)
 )
 
-func (user *User) Get() *models.ErrorRespond {
+func (user *User) Get() *errors.ErrorRespond {
 	result := usersDB[user.Id]
 	if result == nil {
 		return errors.NewNotFoundError(fmt.Sprintf("user_id %d not found", user.Id))
@@ -27,7 +27,7 @@ func (user *User) Get() *models.ErrorRespond {
 	return nil
 }
 
-func (user *User) Save() *models.ErrorRespond {
+func (user *User) Save() *errors.ErrorRespond {
 	current := usersDB[user.Id]
 	if current != nil {
 		if current.Email == user.Email {
