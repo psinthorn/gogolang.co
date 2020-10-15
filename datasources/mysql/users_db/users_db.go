@@ -43,5 +43,5 @@ func init() {
 	if err = Client.Ping(); err != nil {
 		panic(err)
 	}
-	log.Println("Database connect successfully ")
+	log.Println("mySQL connect successfully ")
 }
