@@ -1,9 +1,8 @@
 package app
 
 import (
+	"github.com/psinthorn/gogolang.co/controllers/contents"
 	"github.com/psinthorn/gogolang.co/controllers/index"
-	"github.com/psinthorn/gogolang.co/domain/contents"
-
 	"github.com/psinthorn/gogolang.co/controllers/users"
 )
 
@@ -14,8 +13,8 @@ func urlsMapping() {
 	router.PATCH("/users/:user_id", users.Update)
 	router.DELETE("/users/:user_id", users.Delete)
 
-	// router.POST("/contents", contents.Create)
-	// router.GET("/contents/content_id", contents.Get)
+	router.POST("/contents", contents.Create)
+	router.GET("/contents/content_id", contents.Get)
 
 	router.GET("/", index.Welcome)
 	router.GET("/about", index.About)

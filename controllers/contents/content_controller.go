@@ -14,6 +14,8 @@ import (
 // standard content
 //
 
+var content contents.Content
+
 func Create(c *gin.Context) {
 	var content contents.Content
 
