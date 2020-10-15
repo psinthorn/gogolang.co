@@ -22,7 +22,7 @@ type Content struct {
 func (content *Content) Validate() *errors.ErrorRespond {
 	content.Title = strings.TrimSpace(content.Title)
 	if content.Title == "" {
-		return errors.NewContentAlertNotice()("Title can not be empty!")
+		return errors.NewContentAlertNotice("Title can not be empty!")
 	}
 	return nil
 }
