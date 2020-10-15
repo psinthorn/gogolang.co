@@ -39,6 +39,11 @@ func Create(c *gin.Context) {
 	c.JSON(http.StatusOK, resultContent)
 }
 
+// GET content all
+func GetAll(c *gin.Context) {
+	c.JSON(http.StatusNotImplemented, "Implement Get all contents please")
+}
+
 // GET content by ID
 func Get(c *gin.Context) {
 	c.JSON(http.StatusNotImplemented, "Implement me please")
