@@ -46,15 +46,15 @@ func GetAll(c *gin.Context) {
 
 // GET content by ID
 func Get(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement me please")
+	c.JSON(http.StatusNotImplemented, "Implement get content by id please")
 }
 
 // Update content by ID
-func UpdateContent(c *gin.Context) {
+func Update(c *gin.Context) {
 	c.JSON(http.StatusNotImplemented, "Implement me please")
 }
 
 // delete content by ID
-func DeleteContent(c *gin.Context) {
+func Delete(c *gin.Context) {
 	c.JSON(http.StatusNotImplemented, "Implement me please")
 }

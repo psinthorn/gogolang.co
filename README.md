@@ -57,10 +57,14 @@ Development 1st golang web project for Beginner to Deployment
             |- database_name.go
             |- ...
         | |- ...
-        |- models
+        |- domain
             |- models-folder-name
                 |- model_name.dao
                 |- model_anme.dto
+                |- ...
+        |- routes
+            |- route_name.go
+            |- ...
         |- services
         | |- services-name-folder
             |- service_name.go

@@ -1,31 +1,29 @@
 package categories
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"github.com/psinthorn/gogolang.co/domain/errors"
 )
 
 //
 // CRUD Categories
 //
 
-// Create category and save to datanase
-func Create(c *gin.Context) {
-	c.JSON(http.StatusOK, "Implement me please")
+// Save category to datanase
+func (category *Category) Save() *errors.ErrorRespond {
+	return nil
 }
 
 // Read categories from database
-func Get(c *gin.Context) {
-	c.JSON(http.StatusOK, "Implement me please")
+func (category *Category) Get() *errors.ErrorRespond {
+	return nil
 }
 
 // Update Category
-func Update(c *gin.Context) {
-	c.JSON(http.StatusOK, "Implement me please")
+func (category *Category) Update() *errors.ErrorRespond {
+	return nil
 }
 
 // Delete category
-func Delete(c *gin.Context) {
-	c.JSON(http.StatusOK, "Implement me please")
+func (category *Category) Delete() *errors.ErrorRespond {
+	return nil
 }
