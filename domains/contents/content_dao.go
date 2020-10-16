@@ -1,6 +1,6 @@
 package contents
 
-import "github.com/psinthorn/gogolang.co/domain/errors"
+import "github.com/psinthorn/gogolang.co/domains/errors"
 
 var (
 	contentDB = make(map[int64]*Content)

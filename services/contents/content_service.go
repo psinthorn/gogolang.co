@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/psinthorn/gogolang.co/domain/contents"
-	"github.com/psinthorn/gogolang.co/domain/errors"
+	"github.com/psinthorn/gogolang.co/domains/contents"
+	"github.com/psinthorn/gogolang.co/domains/errors"
 )
 
 //
@@ -16,6 +16,13 @@ func CreateContent(content contents.Content) (*contents.Content, *errors.ErrorRe
 
 	return &content, nil
 
+}
+
+func GetAllContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
+	if err := content.Get(); err != nil {
+		return nil, err
+	}
+	return &content, nil
 }
 
 func GetContent(id int64) (*contents.Content, *errors.ErrorRespond) {
