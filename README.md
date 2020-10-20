@@ -124,9 +124,6 @@ go mod init github.com/your_github_username/your_repo_name
 ```
 
 ## 2. เริ่มต้นสร้าง Http Server โดย Gin-Gonic
-### กำหนด Folder สำหรับ HTML Template
-### กำหนด Folder สำหรับ Static Assets
-
 ### สร้าง Function สำหรับ เลือก server port อัตโนมัติ
 ### We're use Getenv to check and get current server port running by using function below.
 
@@ -143,14 +140,17 @@ go mod init github.com/your_github_username/your_repo_name
 ### Start Server
 ```
     $ go run main.go
+
 ```
-## 3. Templates
+
+## 3. กำหนด Folder สำหรับ HTML Template
 ### How to set glbal templates
 ### Template Nested Template
 
-## Static Folder for Assets
+## 4. กำหนด Folder สำหรับ Static Assets
 ### Link Bootstrap, Fonts-Awesome and Google Fonts
 ### install node-sass and jquery  
+> หมายเหตุ: ต้องทำการติดตั้ง node ก่อนนะครับจึงจะทำขั้นตอนนี้ได้ครับ
 ```
     $ npm init
     $ npm install node-sass --save-dev
@@ -176,6 +176,7 @@ go mod init github.com/your_github_username/your_repo_name
 
 ## 8. Push to github account 
 > จัดเก็บไฟล์ ที่ github.com account
+
 
 
 ## Database Section
