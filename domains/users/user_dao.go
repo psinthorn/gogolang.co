@@ -3,8 +3,9 @@ package users
 import (
 	"fmt"
 
-	date_utils "github.com/psinthorn/F2Go/utils/date-utils"
+	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
+	date_utils "github.com/psinthorn/gogolang.co/utils"
 )
 
 var (
@@ -12,6 +13,11 @@ var (
 )
 
 func (user *User) Get() *errors.ErrorRespond {
+
+	if err := mysql_db.Client.Ping(); err != nil {
+		panic(err)
+	}
+
 	result := usersDB[user.Id]
 	if result == nil {
 		return errors.NewNotFoundError(fmt.Sprintf("user_id %d not found", user.Id))
@@ -41,7 +47,8 @@ func (user *User) Save() *errors.ErrorRespond {
 	// now := time.Now().UTC()
 	// user.DateCreated = now.Format("2006-01-02T15:04:05Z")
 
-	user.DateCreated = date_utils.GetNow().Format("2006-01-02T15:04:05Z")
+	//user.DateCreated = date_utils.GetNow().Format("2006-01-02T15:04:05Z")
+	user.DateCreated = date_utils.GetNowString()
 	usersDB[user.Id] = user
 	return nil
 }

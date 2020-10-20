@@ -13,7 +13,7 @@ import (
 	"log"
 	"os"
 
-	_ "gihub.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 const (
@@ -32,8 +32,25 @@ var (
 	mysql_schema = os.Getenv(mysql_users_schema)
 )
 
+var (
+	hosName        string
+	dataSourceName string
+)
+
 func init() {
-	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", username, password, mysql_host, mysql_schema)
+	fmt.Println("host name is")
+	hostName, _ := os.Hostname()
+	fmt.Println(hostName)
+
+	if hostName == "Apple-Macintosh-2.local" {
+		// for dev only
+		dataSourceName = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", "root", "1980#$Life", "127.0.0.1", "gogolang")
+
+	} else {
+		// for production
+		dataSourceName = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", username, password, mysql_host, mysql_schema)
+
+	}
 
 	var err error
 	Client, err = sql.Open("mysql", dataSourceName)
@@ -43,5 +60,5 @@ func init() {
 	if err = Client.Ping(); err != nil {
 		panic(err)
 	}
-	log.Println("mySQL connect successfully ")
+	log.Printf("mySQL connect successfully on %s", hostName)
 }
