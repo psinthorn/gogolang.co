@@ -221,7 +221,7 @@ $ export mysql_users_schema='users'
 
 ```
 
-### การตรวจสอบค่าตัวแปร
+### การตรวจสอบค่าตัวแปร env
 
 ```
 // คำสั่งสำหรับแสดงค่าตัวแปรที่ set แล้วเพื่อตรวจสอบว่าถูกต้องหรือไม่ โดยใช้คำสั่ง echo ตามด้วยชื่อ ตัวแปร
@@ -232,6 +232,16 @@ $ echo $mysql_users_username
 
 
 ```
+### ทดสอบการเชื่อมต่อ database
+
+```
+// init to test database connection
+	if err := mysql_db.Client.Ping(); err != nil {
+		panic(err)
+	}
+
+```
+
 
 **_ What is dufferrent about PUT and PATCH _**
 

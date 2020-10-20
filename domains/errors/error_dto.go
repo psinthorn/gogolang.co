@@ -36,3 +36,11 @@ func NewContentAlertNotice(message string) *ErrorRespond {
 		Error:      "no_content",
 	}
 }
+
+func NewInternalServerError(message string) *ErrorRespond {
+	return &ErrorRespond{
+		Message:    message,
+		StatusCode: http.StatusInternalServerError,
+		Error:      "internal_server_error",
+	}
+}
