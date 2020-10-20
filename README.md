@@ -18,6 +18,8 @@ Development 1st golang web project for Beginner to Deployment
 
 ### ภาพรวมในขั้นตอนที่ 1 นี้มีอะไรกันบ้าง
 > - 1. สร้าง Folder Structure
+>   - 1.1 Git เตรียมและจัดเก็บงานที่ github.com 
+>   - 1.2 จัดการ package ด้วย go module
 > - 2. สร้าง function สำหรับ Start Server 
 > - 3. กำหนด Folder สำหรับ HTML Template (ฺBasic)
 > - 4. กำหนด Folder สำหรับ Static Assets ต่างๆ เช่น css, images, js เป็นต้น
@@ -25,6 +27,7 @@ Development 1st golang web project for Beginner to Deployment
 > - 5. ติดตั้ง node-sass สำหรับ sass compileer เพื่อเพิ่มความยืดหยุ่นให้การจัดการ css 
 > - 6. สร้าง Function สำหรับ เลือก Server Port อัตโนมัติ ระหว่าง Dev และ Production Enverontment
 > - 7. ทดสอบ Run Server
+> - 8. Push to github
 
 ## โครงสร้างโฟเดอร์และไฟล์ระบบ MVC Microservices
 ### Structure MVC Microservices
@@ -137,7 +140,11 @@ go mod init github.com/your_github_username/your_repo_name
 ```
 
 ## 3. Templates
+### How to set glbal templates
+### Template Nested Template
 
+## Static Folder for Assets
+### Link Bootstrap, Fonts-Awesome and Google Fonts
 ### install node-sass and jquery  
 ```
     $ npm init
@@ -162,9 +169,9 @@ go mod init github.com/your_github_username/your_repo_name
 
 ```
 
-### How to set glbal templates
+## 8. Push to github account 
+> จัดเก็บไฟล์ ที่ github.com account
 
-### Template Nested Template
 
 ## Database Section
 
