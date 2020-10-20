@@ -10,8 +10,7 @@ Development 1st golang web project for Beginner to Deployment
 
 > GoGolang.co I used it as a learning webapplication development from beginner to deployment by golang following MVC microserivces structure. And i will try to write every details on the way of my learning. May it can benefit to someone that start to learn golang web development like me. Go for golang and enjoys with Go :)
 
-# มาเริ่มกันเลย
-## Getting Start 
+# มาเริ่มกันเลย -> Getting Start 
 
 # ขั้นที่ 1 สร้าง Folder และ Start Server กันก่อน
 ## Section 1 Create folder structure and Start Server
@@ -34,7 +33,7 @@ Development 1st golang web project for Beginner to Deployment
 
 > ขั้นแรกเรามาเริ่มสร้าง Folder Structure สำหรับโปรเจคกันเลย โดยแนะนำให้สร้างเฉพาะ Folder ทั้งหมดก่อน ส่วน files ต่างๆ ค่อยเริ่มสร้างตามขั้นตอนในแต่ละตอน
 ### 1. Folders Structure
-
+> *ภาพรวม Folder structure เมื่อเราได้เริ่มทำจนสามารถ run server ได้ 
     -----
         |- app
             |- app.go
@@ -108,14 +107,27 @@ Development 1st golang web project for Beginner to Deployment
     -----
 ### 1.1 ติดตั้ง git และสร้าง github.com
 > เนื่องจากปัจจุบันนั้นการใช้ git นั้นน่าจะเป็นพื้นฐานทั่วไปสำหรับ Developers ทุกคน จึงไม่ขอกล่าวถึงวิธีการติดตั้งในขั้นตอนนี้ ร่วมถึงการสร้าง git account ในผู้ให้บริการต่างๆ ไม่ว่าจะเป็น github.com gitlab.com หรืออื่นๆ จะขอกล่าวถึงเฉพาะคำสั่งที่ใช้ในการทำงานเท่านั้น
+> ---
+> url สำหรับ Project นี้ของผมคือ (จะใช้ร่วมในขั้นตอน go module ด้วยนะครับ)
+> github.com/psinthorn/gogolang.co
+> ---
+> 
+> หมายเหตุ: url ของแต่ละท่านขึ้นอยู่กับว่าท่านสร้าง repos ชื่ออะไรนะครับ ไม่จำเป็นต้องเหมือนของผมครับ
 
-### 1.2 จัดการ package go module
 
-## เริ่มต้นสร้าง Http Server โดย Gin-Gonic
+### 1.2 ใช้ Go Module ในการจัดการ Package ใน Project
+### How to init Go Module
+
+```
+go mod init github.com/your_github_username/your_repo_name
+
+```
+
+## 2. เริ่มต้นสร้าง Http Server โดย Gin-Gonic
 ### กำหนด Folder สำหรับ HTML Template
 ### กำหนด Folder สำหรับ Static Assets
 
-## 2. สร้าง Function สำหรับ เลือก server port อัตโนมัติ
+### สร้าง Function สำหรับ เลือก server port อัตโนมัติ
 ### We're use Getenv to check and get current server port running by using function below.
 
 ```golang
@@ -129,18 +141,9 @@ Development 1st golang web project for Beginner to Deployment
 ```
 
 ### Start Server
-
 ```
     $ go run main.go
 ```
-## ใช้ Go Module ในการจัดการ Package ใน Project
-## How to init Go Module
-
-```
-go mod init github.com/your_github_username/your_repo_name
-
-```
-
 ## 3. Templates
 ### How to set glbal templates
 ### Template Nested Template
