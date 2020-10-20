@@ -34,6 +34,8 @@ Development 1st golang web project for Beginner to Deployment
 > ขั้นแรกเรามาเริ่มสร้าง Folder Structure สำหรับโปรเจคกันเลย โดยแนะนำให้สร้างเฉพาะ Folder ทั้งหมดก่อน ส่วน files ต่างๆ ค่อยเริ่มสร้างตามขั้นตอนในแต่ละตอน
 ### 1. Folders Structure
 > *ภาพรวม Folder structure เมื่อเราได้เริ่มทำจนสามารถ run server ได้ 
+
+
     -----
         |- app
             |- app.go
