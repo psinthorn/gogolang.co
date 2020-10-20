@@ -106,11 +106,13 @@ Development 1st golang web project for Beginner to Deployment
         - package-lock.json
         - README.md
     -----
+### 1.1 ติดตั้ง git และสร้าง github.com
+> เนื่องจากปัจจุบันนั้นการใช้ git นั้นน่าจะเป็นพื้นฐานทั่วไปสำหรับ Developers ทุกคน จึงไม่ขอกล่าวถึงวิธีการติดตั้งในขั้นตอนนี้ ร่วมถึงการสร้าง git account ในผู้ให้บริการต่างๆ ไม่ว่าจะเป็น github.com gitlab.com หรืออื่นๆ จะขอกล่าวถึงเฉพาะคำสั่งที่ใช้ในการทำงานเท่านั้น
+
+### 1.2 จัดการ package go module
 
 ## เริ่มต้นสร้าง Http Server โดย Gin-Gonic
-
 ### กำหนด Folder สำหรับ HTML Template
-
 ### กำหนด Folder สำหรับ Static Assets
 
 ## 2. สร้าง Function สำหรับ เลือก server port อัตโนมัติ
