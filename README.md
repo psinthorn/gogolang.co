@@ -125,6 +125,13 @@ go mod init github.com/your_github_username/your_repo_name
 ### สร้าง Function สำหรับ เลือก server port อัตโนมัติ
 ### We're use Getenv to check and get current server port running by using function below.
 
+> ชื่อ file และตำแหน่ง file ใน folder
+-----
+    |- configs
+        |- server_port_selector.go
+
+-----
+
 ```golang
     func (s *server) PortRunning() string {
      port := os.Getenv("PORT")
