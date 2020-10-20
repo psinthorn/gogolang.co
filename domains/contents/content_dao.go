@@ -17,7 +17,7 @@ func (content *Content) Get() *errors.ErrorRespond {
 // Create new content
 //
 
-func (content *Content) Create() *errors.ErrorRespond {
+func (content *Content) Save() *errors.ErrorRespond {
 	contentDB[content.Id] = content
 	return nil
 }

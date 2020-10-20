@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/psinthorn/gogolang.co/domain/errors"
-	"github.com/psinthorn/gogolang.co/domain/users"
+	"github.com/psinthorn/gogolang.co/domains/errors"
+	"github.com/psinthorn/gogolang.co/domains/users"
 	services "github.com/psinthorn/gogolang.co/services/users"
 )
 
@@ -59,7 +59,7 @@ func Create(c *gin.Context) {
 // Get user by ID
 //
 func Get(c *gin.Context) {
-	userId, err := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		restErr := errors.NewBadRequestError("user id must be a number")
 		c.JSON(restErr.StatusCode, restErr)

@@ -3,7 +3,7 @@ package users
 import (
 	"strings"
 
-	"github.com/psinthorn/gogolang.co/domain/errors"
+	"github.com/psinthorn/gogolang.co/domains/errors"
 )
 
 type User struct {

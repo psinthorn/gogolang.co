@@ -1,11 +1,13 @@
 package contents
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/psinthorn/gogolang.co/domain/contents"
-	"github.com/psinthorn/gogolang.co/domain/errors"
+	"github.com/psinthorn/gogolang.co/domains/contents"
+	"github.com/psinthorn/gogolang.co/domains/errors"
 	services "github.com/psinthorn/gogolang.co/services/contents"
 )
 
@@ -24,6 +26,7 @@ func Create(c *gin.Context) {
 	if err := c.ShouldBindJSON(&content); err != nil {
 		jsonErr := errors.NewBadRequestError("invalid Json body")
 		c.JSON(jsonErr.StatusCode, jsonErr)
+		fmt.Printf(jsonErr.Error)
 		return
 	}
 
@@ -46,7 +49,29 @@ func GetAll(c *gin.Context) {
 
 // GET content by ID
 func Get(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement get content by id please")
+
+	//STEP:
+	// - check ID is int64 and valid
+	// - call service to get content by given id
+	// - if no contetn found by given id return notfond error
+	// - or return content to request
+
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+
+	if err != nil {
+		restErr := errors.NewBadRequestError("content id must be a number")
+		c.JSON(restErr.StatusCode, restErr)
+		return
+	}
+
+	content, getErr := services.GetContent(id)
+	if getErr != nil {
+		c.JSON(getErr.StatusCode, getErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, content)
+
 }
 
 // Update content by ID

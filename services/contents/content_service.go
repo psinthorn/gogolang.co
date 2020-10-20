@@ -10,7 +10,7 @@ import (
 //
 
 func CreateContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
-	if err := content.Create(); err != nil {
+	if err := content.Save(); err != nil {
 		return nil, err
 	}
 

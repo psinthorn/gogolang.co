@@ -3,8 +3,8 @@ package users
 import (
 	"fmt"
 
-	"github.com/psinthorn/gogolang.co/domain/errors"
-	
+	date_utils "github.com/psinthorn/F2Go/utils/date-utils"
+	"github.com/psinthorn/gogolang.co/domains/errors"
 )
 
 var (
@@ -36,6 +36,12 @@ func (user *User) Save() *errors.ErrorRespond {
 		return errors.NewBadRequestError(fmt.Sprintf("user id %d is already exist", user.Id))
 	}
 
+	// use standard time zone
+	// for Thailand need to +7 from UTC
+	// now := time.Now().UTC()
+	// user.DateCreated = now.Format("2006-01-02T15:04:05Z")
+
+	user.DateCreated = date_utils.GetNow().Format("2006-01-02T15:04:05Z")
 	usersDB[user.Id] = user
 	return nil
 }

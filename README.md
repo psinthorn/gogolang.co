@@ -153,16 +153,52 @@ go mod init github.com/your_github_username/your_repo_name
 
 ### เชื่อมต่อฐานข้อมูล - Connect to databse
 
+folder structure for datasource
+    -----
+        |- datasource
+            |- mysql
+                |- users_db.go
+            |- postgres
+            |- ...
+
+### Connect to MySql
+```
+    func init() {
+        
+        dataSourceName := fmt.Printf("%s:%s@tcp(%s)/%s?charset=utf8", "root", "root", "127.0.0.1:3306", "users_db")
+    }
+```
+
 ### สร้างตัวแปรแวดล้อม (env variables)
 
 ```
+// รูปแบบการ set ค่าแปร environment variable
 $ export variable_name='value'
+
+// set ค่า user name ที่ใช้เชื่อมต่อ database
+$ export mysql_users_usersname='root'
+
+// set ค่า password สำหรับเชื่อมต่อ database
+$ export mysql_users_password='p11#$12ss'
+
+// ชื่อ Host และ port ที่ database server ติดตั้งอยู่ 
+// หากเป็นลงบนเครื่องที่ใช้เขียนโปรแกรมจะใช้ตามพื้นฐานทั่วไปตามด้านล่าง 
+$ export mysql_users_host='127.0.0.1:3306'
+
+// ชื่อ database ที่ต้องการติดต่อ
+$ export mysql_users_schema='users'
+
 ```
 
 ### การตรวจสอบค่าตัวแปร
 
 ```
+// คำสั่งสำหรับแสดงค่าตัวแปรที่ set แล้วเพื่อตรวจสอบว่าถูกต้องหรือไม่ โดยใช้คำสั่ง echo ตามด้วยชื่อ ตัวแปร
 $ echo $variable_name
+
+// การใช้งาน
+$ echo $mysql_users_username 
+
 ```
 
 **_ What is dufferrent about PUT and PATCH _**
