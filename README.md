@@ -127,7 +127,7 @@ go mod init github.com/your_github_username/your_repo_name
 
 
 ```golang
-// server_port_selector.go
+// ชื่อไฟล์ server_port_selector.go
 
     func (s *server) PortRunning() string {
      port := os.Getenv("PORT")
