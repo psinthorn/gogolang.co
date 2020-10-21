@@ -32,7 +32,7 @@ func (content *Content) Get() *errors.ErrorRespond {
 	result := stmt.QueryRow(content.Id)
 	if err := result.Scan(&content.Id, &content.Title, &content.SubTitle, &content.Content, &content.ContentType, &content.Category, &content.Image, &content.Tags, &content.Author, &content.Status, &content.DateCreated); err != nil {
 		return errors.NewInternalServerError(
-			fmt.Sprintf("error on trying to get user id: %d errors: %s ", content.Id, err.Error()))
+			fmt.Sprintf("error on trying to get content id: %d errors: %s ", content.Id, err.Error()))
 	}
 
 	return nil
