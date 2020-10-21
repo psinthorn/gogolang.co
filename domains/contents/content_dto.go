@@ -13,9 +13,10 @@ type Content struct {
 	Content     string `json: "content"`
 	ContentType string `json: "content_type"`
 	Category    string `json: "category"`
+	Image       string `json: "image"`
 	Tags        string `json: "tags"`
 	Author      string `json: "content"`
-	Status      bool   `json: "status"`
+	Status      string `json: "status"`
 	DateCreated string `json: "date_created"`
 }
 

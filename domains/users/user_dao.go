@@ -46,19 +46,10 @@ func (user *User) Get() *errors.ErrorRespond {
 // Save user to database
 func (user *User) Save() *errors.ErrorRespond {
 
-	// // check new user with user indatabase if user exist return error
-	// current := usersDB[user.Id]
-	// if current != nil {
-	// 	if current.Email == user.Email {
-	// 		return errors.NewBadRequestError(fmt.Sprintf("email address %s aleady registered", user.Email))
-	// 	}
-	// 	return errors.NewBadRequestError(fmt.Sprintf("user id %d is already exist", user.Id))
-	// }
-
-	// if user not exist in database then save new user to database
+	// prepare statment for save new user to database
 	stmt, err := mysql_db.Client.Prepare(queryInsertUser)
 	if err != nil {
-		return errors.NewInternalServerError(fmt.Sprint("internal server error %s ", err.Error()))
+		return errors.NewInternalServerError(fmt.Sprintf("internal server error %s ", err.Error()))
 	}
 
 	defer stmt.Close()
