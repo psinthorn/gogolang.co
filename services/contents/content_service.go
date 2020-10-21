@@ -26,8 +26,11 @@ func GetAllContent(content contents.Content) (*contents.Content, *errors.ErrorRe
 }
 
 func GetContent(id int64) (*contents.Content, *errors.ErrorRespond) {
-
-	return nil, nil
+	result := &contents.Content{Id: id}
+	if err := result.Get(); err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 func UpdateContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
