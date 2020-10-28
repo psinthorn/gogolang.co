@@ -59,6 +59,7 @@ func Create(c *gin.Context) {
 // Get user by ID
 //
 func Get(c *gin.Context) {
+
 	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		restErr := errors.NewBadRequestError("user id must be a number")
@@ -81,7 +82,34 @@ func Search(c *gin.Context) {
 }
 
 func Update(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
+	// ตรวจสอบความถูกต้องของ user id ว่าเป็นตัวเลขหรือไม่
+	// หากไม่ให้ return error ให้กับ request
+
+	// หากเป็น ไอดี ถูกต้องให้ทำการ
+	// เรียกไปที่ update serivce
+	// หมายเหตุ: ใน service จะมีเงื่อนไขในการ validation เพื่อตรวจสอบต่างๆ อีกในขั้นตอนการ update ไปที่ database
+	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		restErr := errors.NewBadRequestError("user id must be a number")
+		c.JSON(restErr.StatusCode, restErr)
+		return
+	}
+
+	var user users.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		restError := errors.NewBadRequestError("invalid json body")
+		c.JSON(restError.StatusCode, restError)
+		return
+	}
+
+	user.Id = userId
+	result, updateErr := services.UpdateUser(user)
+	if updateErr != nil {
+		c.JSON(updateErr.StatusCode, updateErr)
+		return
+	}
+	c.JSON(http.StatusOK, result)
+
 }
 
 func Delete(c *gin.Context) {

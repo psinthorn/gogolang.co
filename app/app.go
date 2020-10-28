@@ -9,9 +9,9 @@ var (
 	router = gin.Default()
 )
 
-func StartApp() {
+func StartApp(port string) {
 	router.LoadHTMLGlob("views/*/*.html")
 	router.Static("/assets/", "./assets/")
 	urlsMapping()
-	router.Run(":" + configs.ServerPort.PortSelector("8090"))
+	router.Run(":" + configs.ServerPort.PortSelector(port))
 }

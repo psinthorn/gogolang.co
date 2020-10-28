@@ -1,11 +1,10 @@
 package contents
 
 import (
-	"fmt"
-
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
-	date_utils "github.com/psinthorn/gogolang.co/utils"
+	date_utils "github.com/psinthorn/gogolang.co/utils/date"
+	mysql_utils "github.com/psinthorn/gogolang.co/utils/mysql"
 )
 
 const (
@@ -26,13 +25,11 @@ func (content *Content) Get() *errors.ErrorRespond {
 	stmt, err := mysql_db.Client.Prepare(queryGetContentById)
 	// if error handle it
 	if err != nil {
-		return errors.NewInternalServerError(fmt.Sprintf("internal server error: %s", err.Error()))
+		mysql_utils.PareError(err)
 	}
-
 	result := stmt.QueryRow(content.Id)
 	if err := result.Scan(&content.Id, &content.Title, &content.SubTitle, &content.Content, &content.ContentType, &content.Category, &content.Image, &content.Tags, &content.Author, &content.Status, &content.DateCreated); err != nil {
-		return errors.NewInternalServerError(
-			fmt.Sprintf("error on trying to get content id: %d errors: %s ", content.Id, err.Error()))
+		mysql_utils.PareError(err)
 	}
 
 	return nil
@@ -43,11 +40,9 @@ func (content *Content) Get() *errors.ErrorRespond {
 //
 
 func (content *Content) Save() *errors.ErrorRespond {
-
-	// Prepare statement
 	stmt, err := mysql_db.Client.Prepare(queryInsertContent)
 	if err != nil {
-		return errors.NewInternalServerError(err.Error())
+		mysql_utils.PareError(err)
 	}
 
 	// Close statment protect run out connection
@@ -56,12 +51,12 @@ func (content *Content) Save() *errors.ErrorRespond {
 	content.DateCreated = date_utils.GetNowString()
 	result, err := stmt.Exec(content.Title, content.SubTitle, content.Content, content.ContentType, content.Category, content.Image, content.Tags, content.Author, content.Status, content.DateCreated)
 	if err != nil {
-		return errors.NewInternalServerError(fmt.Sprintf("internal server error %s", err.Error()))
+		mysql_utils.PareError(err)
 	}
 
 	contentId, err := result.LastInsertId()
 	if err != nil {
-		return errors.NewInternalServerError(fmt.Sprintf("internal server error:  %s", err.Error()))
+		mysql_utils.PareError(err)
 	}
 	content.Id = contentId
 	return nil
