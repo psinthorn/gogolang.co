@@ -5,6 +5,19 @@
 //- Create func init() for connection
 //- Handling connection result error or success
 
+// // for mysql local server
+// // run command below for environment variables
+// export mysql_users_username='root'
+// export mysql_users_password='password_secret'
+// export mysql_users_host=127.0.0.1
+// export mysql_users_schema='gogolang'
+//
+// // to check your variables run command below
+// echo $mysql_users_username
+// echo $mysql_users_password
+// echo $mysql_users_host
+// echo $mysql_users_schema
+
 package mysql_db
 
 import (
