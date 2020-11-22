@@ -56,6 +56,21 @@ func Create(c *gin.Context) {
 }
 
 //
+// Get all users
+//
+func GetAll(c *gin.Context) {
+
+	users, getErr := services.GetAllUser()
+	if getErr != nil {
+		c.JSON(getErr.StatusCode, getErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, users)
+
+}
+
+//
 // Get user by ID
 //
 func Get(c *gin.Context) {
@@ -75,10 +90,6 @@ func Get(c *gin.Context) {
 
 	c.JSON(http.StatusOK, user)
 
-}
-
-func Search(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
 }
 
 func Update(c *gin.Context) {
@@ -113,5 +124,9 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "Implement me Please")
+}
+
+func Search(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "Implement me Please")
 }

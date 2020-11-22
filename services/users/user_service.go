@@ -7,15 +7,6 @@ import (
 	"github.com/psinthorn/gogolang.co/domains/users"
 )
 
-func GetUser(userId int64) (*users.User, *errors.ErrorRespond) {
-	result := &users.User{Id: userId}
-
-	if err := result.Get(); err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
 func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 
 	if err := user.Save(); err != nil {
@@ -23,6 +14,23 @@ func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 	}
 
 	return &user, nil
+}
+
+func GetAllUser() (*users.User, *errors.ErrorRespond) {
+
+	// if err := result.Get(); err != nil {
+	// 	return nil, err
+	// }
+	return nil, nil
+}
+
+func GetUser(userId int64) (*users.User, *errors.ErrorRespond) {
+	result := &users.User{Id: userId}
+
+	if err := result.Get(); err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 func UpdateUser(user users.User) (*users.User, *errors.ErrorRespond) {

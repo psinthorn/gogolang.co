@@ -10,9 +10,10 @@ import (
 func urlsMapping() {
 	// router.GET("/ping", controllers.Ping.Pong)
 	router.POST("/users", users.Create)
+	router.GET("/users", users.GetAll)
 	router.GET("/users/:id", users.Get)
-	router.PUT("/users/:id", users.Update)
 	router.PATCH("/users/:id", users.Update)
+	router.PUT("/users/:id", users.Update)
 	router.DELETE("/users/:id", users.Delete)
 
 	router.POST("/categories", categories.Create)
@@ -22,6 +23,9 @@ func urlsMapping() {
 	router.POST("/contents", contents.Create)
 	router.GET("/contents", contents.GetAll)
 	router.GET("/contents/:id", contents.Get)
+	router.PATCH("/contents/:id", contents.Update)
+	router.PUT("/contents/:id", contents.Update)
+	router.DELETE("/contents/:id", contents.Delete)
 
 	router.GET("/", index.Welcome)
 	router.GET("/about", index.About)

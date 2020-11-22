@@ -20,24 +20,6 @@ var (
 	usersDB = make(map[int64]*User)
 )
 
-// Get user by id from database
-func (user *User) Get() *errors.ErrorRespond {
-
-	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
-	stmt, err := mysql_db.Client.Prepare(queryGetUserById)
-	if err != nil {
-		return mysql_utils.PareError(err)
-	}
-	defer stmt.Close()
-
-	result := stmt.QueryRow(user.Id)
-	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
-		return mysql_utils.PareError(err)
-	}
-
-	return nil
-}
-
 // Save user to database
 func (user *User) Save() *errors.ErrorRespond {
 
@@ -69,6 +51,42 @@ func (user *User) Save() *errors.ErrorRespond {
 	}
 
 	user.Id = userId
+	return nil
+}
+
+// Get all users from database
+func (user *User) GetAll() *errors.ErrorRespond {
+
+	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
+	stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
+	if err != nil {
+		return mysql_utils.PareError(err)
+	}
+	defer stmt.Close()
+
+	result := stmt.QueryRow()
+	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
+		return mysql_utils.PareError(err)
+	}
+
+	return nil
+}
+
+// Get user by id from database
+func (user *User) Get() *errors.ErrorRespond {
+
+	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
+	stmt, err := mysql_db.Client.Prepare(queryGetUserById)
+	if err != nil {
+		return mysql_utils.PareError(err)
+	}
+	defer stmt.Close()
+
+	result := stmt.QueryRow(user.Id)
+	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
+		return mysql_utils.PareError(err)
+	}
+
 	return nil
 }
 
