@@ -13,6 +13,7 @@ const (
 	queryGetAllUsers    = "SELECT * FROM users"
 	queryGetUserById    = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users WHERE id = ?"
 	queryUpdateUserById = "UPDATE users SET first_name=?, last_name=?, email=?, avatar=?, status=? WHERE id=?;"
+	queryDeleteUserById = "DELETE FROM users WHERE id=?"
 	errorNoRows         = "no rows in result set"
 )
 
@@ -55,19 +56,28 @@ func (user *User) Save() *errors.ErrorRespond {
 }
 
 // Get all users from database
-func (user *User) GetAll() *errors.ErrorRespond {
+func GetAll() *errors.ErrorRespond {
 
 	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
-	stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
-	if err != nil {
-		return mysql_utils.PareError(err)
-	}
-	defer stmt.Close()
+	//var user *User
 
-	result := stmt.QueryRow()
-	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
-		return mysql_utils.PareError(err)
-	}
+	// stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
+	// if err != nil {
+	// 	return mysql_utils.PareError(err)
+	// }
+	// defer stmt.Close()
+
+	//results, err := stmt.Query()
+
+	// if err != nil {
+	// 	return mysql_utils.PareError(err)
+	// }
+
+	// if err := results.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
+	// 	return mysql_utils.PareError(err)
+	// }
+
+	//fmt.Printf("Results from stmt.Exec %v\n", results)
 
 	return nil
 }
@@ -102,6 +112,21 @@ func (user *User) Update() *errors.ErrorRespond {
 	if err != nil {
 		return mysql_utils.PareError(err)
 	}
+	// if err != nil {
+	// 	return mysql_utils.PareError(err)
+	// }
+	return nil
+}
+
+func (user *User) Delete() *errors.ErrorRespond {
+	stmt, err := mysql_db.Client.Prepare(queryDeleteUserById)
+	if err != nil {
+		return mysql_utils.PareError(err)
+		//return errors.NewInternalServerError(err.Error())
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(user.Id)
 	if err != nil {
 		return mysql_utils.PareError(err)
 	}

@@ -18,9 +18,9 @@ func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 
 func GetAllUser() (*users.User, *errors.ErrorRespond) {
 
-	// if err := result.Get(); err != nil {
-	// 	return nil, err
-	// }
+	if err := users.GetAll(); err != nil {
+		return nil, err
+	}
 	return nil, nil
 }
 
@@ -55,6 +55,9 @@ func UpdateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 	return currentUser, nil
 }
 
-func DeleteUser(user users.User) (*users.User, *errors.ErrorRespond) {
-	return nil, nil
+func DeleteUser(userId int64) *errors.ErrorRespond {
+
+	user := &users.User{Id: userId}
+
+	return user.Delete()
 }

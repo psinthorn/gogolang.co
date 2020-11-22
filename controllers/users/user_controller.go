@@ -124,8 +124,26 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
+	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		restErr := errors.NewBadRequestError("user id must be a number")
+		c.JSON(restErr.StatusCode, restErr)
+		return
+	}
+
+	if err := services.DeleteUser(userId); err != nil {
+		RestErr := errors.NewNotFoundError("user with not found")
+		c.JSON(RestErr.StatusCode, RestErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]string{"status": "deleted"})
+
 }
+
+//
+// Search User by ID
+//
 
 func Search(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "Implement me Please")
