@@ -1,6 +1,8 @@
 package users
 
 import (
+	"fmt"
+
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	date_utils "github.com/psinthorn/gogolang.co/utils/date"
@@ -10,7 +12,7 @@ import (
 const (
 	indexUniqueEmail    = "email_UNIQUE"
 	queryInsertUser     = "INSERT INTO USERS(first_name, last_name, email, avatar, status, date_created) VALUES(?,?,?,?,?,?);"
-	queryGetAllUsers    = "SELECT * FROM users"
+	queryGetAllUsers    = "SELECT * FROM users ORDER BY id DESC"
 	queryGetUserById    = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users WHERE id = ?"
 	queryUpdateUserById = "UPDATE users SET first_name=?, last_name=?, email=?, avatar=?, status=? WHERE id=?;"
 	queryDeleteUserById = "DELETE FROM users WHERE id=?"
@@ -56,30 +58,29 @@ func (user *User) Save() *errors.ErrorRespond {
 }
 
 // Get all users from database
-func GetAll() *errors.ErrorRespond {
+func GetAll() ([]*User, *errors.ErrorRespond) {
 
 	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
-	//var user *User
+	var user *User
+	var allUsers []*User
+	stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
+	if err != nil {
+		return nil, mysql_utils.PareError(err)
+	}
+	defer stmt.Close()
 
-	// stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
-	// if err != nil {
-	// 	return mysql_utils.PareError(err)
-	// }
-	// defer stmt.Close()
+	results, err := stmt.Query()
 
-	//results, err := stmt.Query()
+	if results.Next() {
+		err := results.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar)
+		if err != nil {
 
-	// if err != nil {
-	// 	return mysql_utils.PareError(err)
-	// }
-
-	// if err := results.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
-	// 	return mysql_utils.PareError(err)
-	// }
-
-	//fmt.Printf("Results from stmt.Exec %v\n", results)
-
-	return nil
+			return nil, mysql_utils.PareError(err)
+		}
+		allUsers = append(allUsers, user)
+	}
+	fmt.Println(allUsers)
+	return allUsers, nil
 }
 
 // Get user by id from database

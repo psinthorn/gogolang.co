@@ -9,6 +9,7 @@ import (
 	"github.com/psinthorn/gogolang.co/domains/contents"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	services "github.com/psinthorn/gogolang.co/services/contents"
+	"github.com/psinthorn/gogolang.co/utils"
 )
 
 //
@@ -44,7 +45,11 @@ func Create(c *gin.Context) {
 
 // GET content all
 func GetAll(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement Get all contents please")
+	results, err := services.GetAllContent()
+	if err != nil {
+		c.JSON(err.StatusCode, err)
+	}
+	c.JSON(http.StatusOK, results)
 }
 
 // GET content by ID
@@ -81,5 +86,16 @@ func Update(c *gin.Context) {
 
 // delete content by ID
 func Delete(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement me please")
+	id, err := utils.ValidateId(c.Param("id"))
+	if err != nil {
+		c.JSON(err.StatusCode, err)
+		return
+	}
+
+	_, err = services.CreateContent(id)
+	if err != nil {
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]string{"content": "deleted"})
 }

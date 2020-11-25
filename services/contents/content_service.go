@@ -18,11 +18,12 @@ func CreateContent(content contents.Content) (*contents.Content, *errors.ErrorRe
 
 }
 
-func GetAllContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
-	if err := content.Get(); err != nil {
+func GetAllContent() (*contents.Content, *errors.ErrorRespond) {
+	results := &contents.Content{}
+	if err := results.GetAll(); err != nil {
 		return nil, err
 	}
-	return &content, nil
+	return results, nil
 }
 
 func GetContent(id int64) (*contents.Content, *errors.ErrorRespond) {
@@ -37,6 +38,7 @@ func UpdateContent(content contents.Content) (*contents.Content, *errors.ErrorRe
 	return nil, nil
 }
 
-func DeleteContent(content contents.Content) (*contents.Content, *errors.ErrorRespond) {
-	return nil, nil
+func DeleteContent(id int64) *errors.ErrorRespond {
+	content := &contents.Content{Id: id}
+	return content.Delete()
 }

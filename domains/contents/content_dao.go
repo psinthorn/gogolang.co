@@ -1,6 +1,8 @@
 package contents
 
 import (
+	"fmt"
+
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	date_utils "github.com/psinthorn/gogolang.co/utils/date"
@@ -8,13 +10,53 @@ import (
 )
 
 const (
-	queryInsertContent  = "INSERT INTO contents(title, sub_title, content, content_type, category, image, tags, author, status, date_created) VALUES(?,?,?,?,?,?,?,?,?,?);"
-	queryGetContentById = "SELECT * FROM contents WHERE id = ?"
+	queryInsertContent     = "INSERT INTO contents(title, sub_title, content, content_type, category, image, tags, author, status, date_created) VALUES(?,?,?,?,?,?,?,?,?,?);"
+	queryGetContentById    = "SELECT * FROM contents WHERE id = ?"
+	queryDeleteContentById = "DELETE FROM contents where id = ?"
+	queryGetAllContents    = "SELECT * FROM contents ORDER BY DESC"
 )
 
 var (
 	contentDB = make(map[int64]*Content)
 )
+
+//
+// Get All content by ID
+//
+
+func (content *Content) GetAll() *errors.ErrorRespond {
+
+	//prepar statments
+	stmt, err := mysql_db.Client.Prepare(queryGetAllContents)
+	// if error handle it
+	if err != nil {
+		panic(err.Error())
+	}
+
+	// Close statment protect run out connection
+	defer stmt.Close()
+
+	results, err := stmt.Query(queryGetAllContents)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	for results.Next() {
+		content := Content{}
+		allContents := []Content{}
+
+		err := results.Scan(&content.Id, &content.Title, &content.SubTitle, &content.Content, &content.ContentType, &content.Category, &content.Image, &content.Tags, &content.Author, &content.Status, &content.DateCreated)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		fmt.Println(content)
+		allContents = append(allContents, content)
+	}
+
+	return nil
+
+}
 
 //
 // Get content by ID
@@ -27,6 +69,10 @@ func (content *Content) Get() *errors.ErrorRespond {
 	if err != nil {
 		mysql_utils.PareError(err)
 	}
+
+	// Close statment protect run out connection
+	defer stmt.Close()
+
 	result := stmt.QueryRow(content.Id)
 	if err := result.Scan(&content.Id, &content.Title, &content.SubTitle, &content.Content, &content.ContentType, &content.Category, &content.Image, &content.Tags, &content.Author, &content.Status, &content.DateCreated); err != nil {
 		mysql_utils.PareError(err)
@@ -60,4 +106,20 @@ func (content *Content) Save() *errors.ErrorRespond {
 	}
 	content.Id = contentId
 	return nil
+}
+
+func (content *Content) Delete() *errors.ErrorRespond {
+	stmt, err := mysql_db.Client.Prepare(queryDeleteContentById)
+	if err != nil {
+		mysql_utils.PareError(err)
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(content.Id)
+	if err != nil {
+		return mysql_utils.PareError(err)
+	}
+
+	return nil
+
 }
