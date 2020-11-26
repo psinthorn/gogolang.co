@@ -44,11 +44,7 @@ func Create(c *gin.Context) {
 
 // GET content all
 func GetAll(c *gin.Context) {
-	results, err := services.GetAllContent()
-	if err != nil {
-		c.JSON(err.StatusCode, err)
-	}
-	c.JSON(http.StatusOK, results)
+	c.JSON(http.StatusNotImplemented, "Implement Get all contents please")
 }
 
 // GET content by ID
@@ -85,16 +81,8 @@ func Update(c *gin.Context) {
 
 // delete content by ID
 func Delete(c *gin.Context) {
-	id, err := utils.ValidateId(c.Param("id"))
-	if err != nil {
-		c.JSON(err.StatusCode, err)
-		return
-	}
-
-	_, err = services.CreateContent(id)
-	if err != nil {
-		return
-	}
-
-	c.JSON(http.StatusOK, map[string]string{"content": "deleted"})
+	// validate id
+	// call DeleteContent services
+	// if err not nil return err
+	// if success return c.JSON with status ok and map[string]string{"status": "deleted"} to request
 }

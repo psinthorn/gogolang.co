@@ -78,7 +78,6 @@ func UpdateUser(isPartial bool, user users.User) (*users.User, *errors.ErrorResp
 }
 
 func DeleteUser(userId int64) *errors.ErrorRespond {
-
 	user := &users.User{Id: userId}
 	return user.Delete()
 }

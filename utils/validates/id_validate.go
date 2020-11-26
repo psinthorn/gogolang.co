@@ -1,4 +1,4 @@
-package utils
+package id_utils
 
 import (
 	"github.com/psinthorn/gogolang.co/domains/errors"
