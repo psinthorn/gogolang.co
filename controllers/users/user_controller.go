@@ -56,9 +56,25 @@ func Create(c *gin.Context) {
 }
 
 //
+// Get all users
+//
+func GetAll(c *gin.Context) {
+
+	users, getErr := services.GetAllUser()
+	if getErr != nil {
+		c.JSON(getErr.StatusCode, getErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, users)
+
+}
+
+//
 // Get user by ID
 //
 func Get(c *gin.Context) {
+
 	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		restErr := errors.NewBadRequestError("user id must be a number")
@@ -76,14 +92,69 @@ func Get(c *gin.Context) {
 
 }
 
-func Search(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
-}
-
 func Update(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "Implement me Please")
+
+	// สรุปขั้นตอนการทำงาน
+	// 1. ตรวจสอบ method ว่าเป็น patch หรือไม่
+	// 2. ตรวจสอบความถูกต้องของ user id ว่าเป็นตัวเลขหรือไม่
+	// หากไม่ให้ return error ให้กับ request
+	// หากเป็น ไอดี ถูกต้องให้ทำการ
+	// 3. ทำการเปรียบเทียบความถูกต้องของข้อมูลที่รับมากับ user model และทำการ Bind ข้อมูลให้เป็น JSON หากข้อมูลไม่ถูกต้องให้ return err หากถูกต้องให้
+	// เรียกไปที่ update serivce
+	// หมายเหตุ: ใน service จะมีเงื่อนไขในการ validation เพื่อตรวจสอบต่างๆ อีกในขั้นตอนการ update ไปที่ database
+
+	// ตรวจสอบ method ว่าเป็น patch หรือไม่
+	// โดยจะคืนค่าเป็น Boolean โดยหากเป็น patch จะคืนค่าเป็น true และเป็น false หาก request method เป็นอื่นๆ
+	isPartial := c.Request.Method == http.MethodPatch
+
+	// ตรวจสอบความถูกต้องของ id
+	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		restErr := errors.NewBadRequestError("user id must be a number")
+		c.JSON(restErr.StatusCode, restErr)
+		return
+	}
+
+	// ทำการเปรียบเทียบความถูกต้องของข้อมูลที่รับมากับ user model และทำการ Bind ข้อมูลให้เป็น JSON
+	var user users.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		restError := errors.NewBadRequestError("invalid json body")
+		c.JSON(restError.StatusCode, restError)
+		return
+	}
+
+	user.Id = userId
+	result, updateErr := services.UpdateUser(isPartial, user)
+	if updateErr != nil {
+		c.JSON(updateErr.StatusCode, updateErr)
+		return
+	}
+	c.JSON(http.StatusOK, result)
+
 }
 
 func Delete(c *gin.Context) {
+	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		restErr := errors.NewBadRequestError("user id must be a number")
+		c.JSON(restErr.StatusCode, restErr)
+		return
+	}
+
+	if err := services.DeleteUser(userId); err != nil {
+		RestErr := errors.NewNotFoundError("user not found")
+		c.JSON(RestErr.StatusCode, RestErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]string{"status": "deleted"})
+
+}
+
+//
+// Search User by ID
+//
+
+func Search(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "Implement me Please")
 }

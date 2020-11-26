@@ -81,5 +81,8 @@ func Update(c *gin.Context) {
 
 // delete content by ID
 func Delete(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement me please")
+	// validate id
+	// call DeleteContent services
+	// if err not nil return err
+	// if success return c.JSON with status ok and map[string]string{"status": "deleted"} to request
 }
