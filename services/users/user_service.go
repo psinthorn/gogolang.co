@@ -16,7 +16,7 @@ func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 	return &user, nil
 }
 
-func GetAllUser() ([]*users.User, *errors.ErrorRespond) {
+func GetAllUser() ([]users.User, *errors.ErrorRespond) {
 
 	allUsers, err := users.GetAll()
 	if err != nil {
@@ -39,42 +39,47 @@ func UpdateUser(isPartial bool, user users.User) (*users.User, *errors.ErrorResp
 	if err != nil {
 		return nil, err
 	}
-	if isPartial {
-		fmt.Println(isPartial)
-		if user.FirstName == "" {
-			user.FirstName = currentUser.FirstName
-		}
+	// if isPartial {
+	// 	fmt.Println(isPartial)
+	// 	if user.FirstName == "" {
+	// 		user.FirstName = currentUser.FirstName
+	// 	}
 
-		if user.LastName == "" {
-			user.LastName = currentUser.LastName
-		}
+	// 	if user.LastName == "" {
+	// 		user.LastName = currentUser.LastName
+	// 	}
 
-		if user.Email == "" {
-			user.Email = currentUser.Email
-		}
+	// 	if user.Email == "" {
+	// 		user.Email = currentUser.Email
+	// 	}
 
-		if user.Avatar == "" {
-			user.Avatar = currentUser.Avatar
-		}
+	// 	if user.Avatar == "" {
+	// 		user.Avatar = currentUser.Avatar
+	// 	}
 
-		return currentUser, nil
+	// 	return currentUser, nil
 
-	}
-
+	// }
+	fmt.Println("new user data: ", user)
 	fmt.Println("befor update: ", currentUser)
 	currentUser.FirstName = user.FirstName
 	currentUser.LastName = user.LastName
 	currentUser.Email = user.Email
 	currentUser.Avatar = user.Avatar
 	currentUser.Status = user.Status
+	fmt.Println("after update: ", currentUser)
 
 	if err := currentUser.Update(); err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
-	fmt.Println("after updated: ", currentUser)
 
-	return currentUser, nil
+	updateUser, err := GetUser(user.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return updateUser, nil
 }
 
 func DeleteUser(userId int64) *errors.ErrorRespond {

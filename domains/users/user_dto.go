@@ -26,6 +26,8 @@ type User struct {
 // ทำให้อีเมล์เป็นอักษรตัวเล็ก
 
 func (user *User) Validate() *errors.ErrorRespond {
+	user.FirstName = strings.TrimSpace(user.FirstName)
+	user.LastName = strings.TrimSpace(user.LastName)
 	user.Email = strings.TrimSpace(strings.ToLower(user.Email))
 	if user.Email == "" {
 		return errors.NewBadRequestError("Invalid Email Address")

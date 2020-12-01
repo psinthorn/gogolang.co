@@ -13,7 +13,7 @@ const (
 	queryInsertContent     = "INSERT INTO contents(title, sub_title, content, content_type, category, image, tags, author, status, date_created) VALUES(?,?,?,?,?,?,?,?,?,?);"
 	queryGetContentById    = "SELECT * FROM contents WHERE id = ?"
 	queryDeleteContentById = "DELETE FROM contents where id = ?"
-	queryGetAllContents    = "SELECT * FROM contents ORDER BY DESC"
+	queryGetAllContents    = "SELECT * FROM contents ORDER BY id DESC"
 )
 
 var (
@@ -24,7 +24,7 @@ var (
 // Get All content by ID
 //
 
-func (content *Content) GetAll() *errors.ErrorRespond {
+func GetAll() ([]Content, *errors.ErrorRespond) {
 
 	//prepar statments
 	stmt, err := mysql_db.Client.Prepare(queryGetAllContents)
@@ -32,19 +32,18 @@ func (content *Content) GetAll() *errors.ErrorRespond {
 	if err != nil {
 		panic(err.Error())
 	}
-
 	// Close statment protect run out connection
 	defer stmt.Close()
 
-	results, err := stmt.Query(queryGetAllContents)
+	results, err := stmt.Query()
 	if err != nil {
 		panic(err.Error())
 	}
 
-	for results.Next() {
-		content := Content{}
-		allContents := []Content{}
+	content := Content{}
+	allContents := []Content{}
 
+	for results.Next() {
 		err := results.Scan(&content.Id, &content.Title, &content.SubTitle, &content.Content, &content.ContentType, &content.Category, &content.Image, &content.Tags, &content.Author, &content.Status, &content.DateCreated)
 		if err != nil {
 			panic(err.Error())
@@ -54,7 +53,7 @@ func (content *Content) GetAll() *errors.ErrorRespond {
 		allContents = append(allContents, content)
 	}
 
-	return nil
+	return allContents, nil
 
 }
 

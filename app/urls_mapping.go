@@ -8,6 +8,14 @@ import (
 )
 
 func urlsMapping() {
+
+	// Section: Index
+	router.GET("/", index.Welcome)
+	router.GET("/about", index.About)
+	// router.GET("/users", users.GetAll)
+	// router.GET("/contents", contents.GetAll)
+
+	// Index: API
 	// router.GET("/ping", controllers.Ping.Pong)
 	router.POST("/users", users.Create)
 	router.GET("/users", users.GetAll)
@@ -27,6 +35,4 @@ func urlsMapping() {
 	router.PUT("/contents/:id", contents.Update)
 	router.DELETE("/contents/:id", contents.Delete)
 
-	router.GET("/", index.Welcome)
-	router.GET("/about", index.About)
 }

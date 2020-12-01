@@ -1,8 +1,6 @@
 package users
 
 import (
-	"fmt"
-
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	date_utils "github.com/psinthorn/gogolang.co/utils/date"
@@ -31,7 +29,6 @@ func (user *User) Save() *errors.ErrorRespond {
 	if err != nil {
 		return mysql_utils.PareError(err)
 	}
-
 	defer stmt.Close()
 
 	// set user date created
@@ -40,7 +37,6 @@ func (user *User) Save() *errors.ErrorRespond {
 	// now := time.Now().UTC()
 	// user.DateCreated = now.Format("2006-01-02T15:04:05Z")
 	user.DateCreated = date_utils.GetNowString()
-
 	insertResult, err := stmt.Exec(user.FirstName, user.LastName, user.Email, user.Avatar, user.Status, user.DateCreated)
 
 	if err != nil {
@@ -52,17 +48,13 @@ func (user *User) Save() *errors.ErrorRespond {
 	if err != nil {
 		return mysql_utils.PareError(err)
 	}
-
 	user.Id = userId
 	return nil
 }
 
 // Get all users from database
-func GetAll() ([]*User, *errors.ErrorRespond) {
-
+func GetAll() ([]User, *errors.ErrorRespond) {
 	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
-	var user *User
-	var allUsers []*User
 	stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
 	if err != nil {
 		return nil, mysql_utils.PareError(err)
@@ -70,16 +62,18 @@ func GetAll() ([]*User, *errors.ErrorRespond) {
 	defer stmt.Close()
 
 	results, err := stmt.Query()
+	// fmt.Println(results)
+	user := User{}
+	allUsers := []User{}
 
-	if results.Next() {
-		err := results.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar)
+	for results.Next() {
+		err := results.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.Status, &user.DateCreated)
 		if err != nil {
-
 			return nil, mysql_utils.PareError(err)
 		}
 		allUsers = append(allUsers, user)
 	}
-	fmt.Println(allUsers)
+	// fmt.Println(allUsers)
 	return allUsers, nil
 }
 
@@ -94,7 +88,7 @@ func (user *User) Get() *errors.ErrorRespond {
 	defer stmt.Close()
 
 	result := stmt.QueryRow(user.Id)
-	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
+	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.Status, &user.DateCreated); err != nil {
 		return mysql_utils.PareError(err)
 	}
 

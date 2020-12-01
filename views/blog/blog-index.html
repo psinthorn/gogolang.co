@@ -1,0 +1,31 @@
+<html lang="en">
+{{ template "index-header.html" .}}
+<body>
+    {{ template "navbar.html" .}}
+    {{ template "banner-top.html" .}}
+    <main role="main" class="container pt-5 pb-5">
+        {{ range .}}
+        <div class="pb-5">
+            <!-- {{ .Id }} -->
+            <h1><a href="#">{{ .Title }}</a></h1>
+            <h3>{{ .SubTitle }}</h3>
+            <br>
+            <p class="lead">{{ .Content }}</p>
+            <br>
+            <span class="small">
+            {{ .Category }} | 
+            {{ .ContentType }} | 
+            {{ .Status }} | 
+            {{ .Author }}
+            </span>
+            <br>
+            <span class="small">date created: {{ .DateCreated }}</span>
+            <hr />
+        </div>
+
+        {{ end }}
+    </main>
+    {{template "index-footer.html" .}}
+</body>
+
+</html>

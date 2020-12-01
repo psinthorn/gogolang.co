@@ -44,7 +44,23 @@ func Create(c *gin.Context) {
 
 // GET content all
 func GetAll(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement Get all contents please")
+	// Check Application Type if JSON will be true
+	api := false
+
+	// call GetAllContents on services
+	contents, err := services.GetAllContent()
+	if err != nil {
+		c.JSON(err.StatusCode, err)
+		return
+	}
+
+	// if no error then return results to request
+	if api {
+		c.JSON(http.StatusOK, contents)
+	} else {
+		c.HTML(http.StatusOK, "blog-index.html", contents)
+	}
+
 }
 
 // GET content by ID
