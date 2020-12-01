@@ -1,7 +1,6 @@
 package users
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -106,9 +105,7 @@ func Update(c *gin.Context) {
 
 	// ตรวจสอบ method ว่าเป็น patch หรือไม่
 	// โดยจะคืนค่าเป็น Boolean โดยหากเป็น patch จะคืนค่าเป็น true และเป็น false หาก request method เป็นอื่นๆ
-	fmt.Print(c.Request.Method)
 	isPartial := c.Request.Method == http.MethodPatch
-	fmt.Println(isPartial)
 
 	// ตรวจสอบความถูกต้องของ id
 	userId, err := strconv.ParseInt(c.Param("id"), 10, 64)

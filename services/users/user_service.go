@@ -39,47 +39,54 @@ func UpdateUser(isPartial bool, user users.User) (*users.User, *errors.ErrorResp
 	if err != nil {
 		return nil, err
 	}
-	// if isPartial {
-	// 	fmt.Println(isPartial)
-	// 	if user.FirstName == "" {
-	// 		user.FirstName = currentUser.FirstName
-	// 	}
 
-	// 	if user.LastName == "" {
-	// 		user.LastName = currentUser.LastName
-	// 	}
+	if isPartial {
+		fmt.Println(isPartial)
+		if user.FirstName != "" {
+			currentUser.FirstName = user.FirstName
+		}
 
-	// 	if user.Email == "" {
-	// 		user.Email = currentUser.Email
-	// 	}
+		if user.LastName != "" {
+			currentUser.LastName = user.LastName
+		}
 
-	// 	if user.Avatar == "" {
-	// 		user.Avatar = currentUser.Avatar
-	// 	}
+		if user.Email != "" {
+			currentUser.Email = user.Email
+		}
 
-	// 	return currentUser, nil
+		if user.Avatar != "" {
+			currentUser.Avatar = user.Avatar
+		}
 
+		if user.Status != "" {
+			currentUser.Status = user.Status
+		}
+
+	} else {
+
+		currentUser.FirstName = user.FirstName
+		currentUser.LastName = user.LastName
+		currentUser.Email = user.Email
+		currentUser.Avatar = user.Avatar
+		currentUser.Status = user.Status
+
+	}
+
+	// if err := user.Validate(); err != nil {
+	// 	return nil, err
 	// }
-	fmt.Println("new user data: ", user)
-	fmt.Println("befor update: ", currentUser)
-	currentUser.FirstName = user.FirstName
-	currentUser.LastName = user.LastName
-	currentUser.Email = user.Email
-	currentUser.Avatar = user.Avatar
-	currentUser.Status = user.Status
-	fmt.Println("after update: ", currentUser)
 
 	if err := currentUser.Update(); err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
 
-	updateUser, err := GetUser(user.Id)
-	if err != nil {
-		return nil, err
-	}
+	// updateUser, err := GetUser(user.Id)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	return updateUser, nil
+	return currentUser, nil
 }
 
 func DeleteUser(userId int64) *errors.ErrorRespond {

@@ -1,8 +1,6 @@
 package contents
 
 import (
-	"fmt"
-
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	date_utils "github.com/psinthorn/gogolang.co/utils/date"
@@ -48,8 +46,6 @@ func GetAll() ([]Content, *errors.ErrorRespond) {
 		if err != nil {
 			panic(err.Error())
 		}
-
-		fmt.Println(content)
 		allContents = append(allContents, content)
 	}
 
