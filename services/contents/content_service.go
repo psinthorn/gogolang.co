@@ -18,9 +18,9 @@ func CreateContent(content contents.Content) (*contents.Content, *errors.ErrorRe
 
 }
 
-func GetAllContent() (*contents.Content, *errors.ErrorRespond) {
-	results := &contents.Content{}
-	if err := results.GetAll(); err != nil {
+func GetAllContent() ([]contents.Content, *errors.ErrorRespond) {
+	results, err := contents.GetAll()
+	if err != nil {
 		return nil, err
 	}
 	return results, nil

@@ -44,7 +44,25 @@ func Create(c *gin.Context) {
 
 // GET content all
 func GetAll(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement Get all contents please")
+	// // Check Application Type if JSON will be true
+	// api := false
+
+	// call GetAllContents on services
+	contents, err := services.GetAllContent()
+	if err != nil {
+		c.JSON(err.StatusCode, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, contents)
+
+	// // if no error then return results to request
+	// if api {
+	// 	c.JSON(http.StatusOK, contents)
+	// } else {
+	// 	c.HTML(http.StatusOK, "blog-index.html", contents)
+	// }
+
 }
 
 // GET content by ID
@@ -85,4 +103,19 @@ func Delete(c *gin.Context) {
 	// call DeleteContent services
 	// if err not nil return err
 	// if success return c.JSON with status ok and map[string]string{"status": "deleted"} to request
+	Id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		restErr := errors.NewBadRequestError("content id must be a number")
+		c.JSON(restErr.StatusCode, restErr)
+		return
+	}
+
+	if err := services.DeleteContent(Id); err != nil {
+		RestErr := errors.NewNotFoundError("content not found")
+		c.JSON(RestErr.StatusCode, RestErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]string{"status": "deleted"})
+
 }
