@@ -29,8 +29,8 @@ func urlsMapping() {
 	router.GET("/categories/:id", categories.Get)
 
 	router.POST("/contents", contents.Create)
-	router.GET("/contents", contents.GetAll)
-	router.GET("/contents/:id", contents.Get)
+	router.GET("/allcontents/:api", contents.GetAll)
+	router.GET("/contents/:id/:api", contents.Get)
 	router.PATCH("/contents/:id", contents.Update)
 	router.PUT("/contents/:id", contents.Update)
 	router.DELETE("/contents/:id", contents.Delete)

@@ -9,6 +9,7 @@ import (
 	"github.com/psinthorn/gogolang.co/domains/contents"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	services "github.com/psinthorn/gogolang.co/services/contents"
+	validate_utils "github.com/psinthorn/gogolang.co/utils/validates"
 )
 
 //
@@ -17,6 +18,8 @@ import (
 //
 
 var content contents.Content
+
+// var isApi bool = false
 
 func Create(c *gin.Context) {
 	var content contents.Content
@@ -45,7 +48,11 @@ func Create(c *gin.Context) {
 // GET content all
 func GetAll(c *gin.Context) {
 	// // Check Application Type if JSON will be true
-	// api := false
+	isApi, err := validate_utils.IsApi(c.Param("api"))
+	if err != nil {
+		c.JSON(err.StatusCode, err)
+		return
+	}
 
 	// call GetAllContents on services
 	contents, err := services.GetAllContent()
@@ -54,7 +61,11 @@ func GetAll(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, contents)
+	if isApi {
+		c.JSON(http.StatusOK, contents)
+	} else {
+		c.HTML(http.StatusOK, "blog-index.html", contents)
+	}
 
 	// // if no error then return results to request
 	// if api {
@@ -74,11 +85,15 @@ func Get(c *gin.Context) {
 	// - if no contetn found by given id return notfond error
 	// - or return content to request
 
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-
+	isApi, err := validate_utils.IsApi(c.Param("api"))
 	if err != nil {
-		restErr := errors.NewBadRequestError("content id must be a number")
-		c.JSON(restErr.StatusCode, restErr)
+		c.JSON(err.StatusCode, err)
+		return
+	}
+
+	id, err := validate_utils.Id(c.Param("id"))
+	if err != nil {
+		c.JSON(err.StatusCode, err)
 		return
 	}
 
@@ -88,13 +103,54 @@ func Get(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, content)
+	if isApi {
+		c.JSON(http.StatusOK, content)
+	} else {
+		c.HTML(http.StatusOK, "blog-show.html", content)
+	}
 
 }
 
 // Update content by ID
 func Update(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "Implement me please")
+	// Validate ID
+	// Validate method PUT or PATCH
+	// ShouldBindJson
+	// If Error or can't bind to Json return error to request
+	// If can bund json Call ContentUpdat Method on Content Service
+	// If Error return error to request
+	// if Update success return rsult to request
+
+	// id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	// if err != nil {
+	// 	restErr := errors.NewBadRequestError("content id must be a number")
+	// 	c.JSON(restErr.StatusCode, restErr)
+	// 	return
+	// }
+
+	fmt.Println(c.Param("api"))
+	// 	isApi, err := validate_utils.IsApi(c.Param("api")) {
+	// 	if err != nil {
+	// 		c.JSON(err.StatusCode, err)
+	// 		return
+	// 	}
+	// }
+
+	// isApi, err := strconv.ParseInt(c.Param("api"), 10, 64)
+	// if err != nil {
+	// 	restErr := errors.NewBadRequestError("content id must be a number")
+	// 	c.JSON(restErr.StatusCode, restErr)
+	// 	return
+	// }
+
+	// isPartial := c.Request.Method == http.MethodPatch
+
+	// if isApi {
+	// 	c.JSON(http.StatusNotImplemented, "Implement me please")
+	// } else {
+	// 	c.HTML(http.StatusOK, "update-form.html", nil)
+	// }
+
 }
 
 // delete content by ID
