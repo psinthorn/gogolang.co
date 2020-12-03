@@ -62,6 +62,10 @@ func GetAll() ([]User, *errors.ErrorRespond) {
 	defer stmt.Close()
 
 	results, err := stmt.Query()
+	if err != nil {
+		return nil, mysql_utils.PareError(err)
+	}
+	defer results.Close()
 	// fmt.Println(results)
 	user := User{}
 	allUsers := []User{}
@@ -73,7 +77,12 @@ func GetAll() ([]User, *errors.ErrorRespond) {
 		}
 		allUsers = append(allUsers, user)
 	}
-	// fmt.Println(allUsers)
+
+	// if results == 0 then return err not found
+	if len(allUsers) == 0 {
+		return nil, errors.NewNotFoundError("No user found")
+	}
+	// Retrun results to request
 	return allUsers, nil
 }
 

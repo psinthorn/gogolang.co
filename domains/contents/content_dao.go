@@ -28,27 +28,30 @@ func GetAll() ([]Content, *errors.ErrorRespond) {
 	stmt, err := mysql_db.Client.Prepare(queryGetAllContents)
 	// if error handle it
 	if err != nil {
-		panic(err.Error())
+		return nil, mysql_utils.PareError(err)
 	}
 	// Close statment protect run out connection
 	defer stmt.Close()
 
 	results, err := stmt.Query()
 	if err != nil {
-		panic(err.Error())
+		return nil, mysql_utils.PareError(err)
 	}
+	defer results.Close()
 
-	content := Content{}
-	allContents := []Content{}
-
+	allContents := make([]Content, 0)
 	for results.Next() {
+		var content Content
 		err := results.Scan(&content.Id, &content.Title, &content.SubTitle, &content.Content, &content.ContentType, &content.Category, &content.Image, &content.Tags, &content.Author, &content.Status, &content.DateCreated)
 		if err != nil {
-			panic(err.Error())
+			return nil, mysql_utils.PareError(err)
 		}
 		allContents = append(allContents, content)
 	}
 
+	if len(allContents) == 0 {
+		return nil, errors.NewNotFoundError("No content found")
+	}
 	return allContents, nil
 
 }
@@ -62,7 +65,7 @@ func (content *Content) Get() *errors.ErrorRespond {
 	stmt, err := mysql_db.Client.Prepare(queryGetContentById)
 	// if error handle it
 	if err != nil {
-		mysql_utils.PareError(err)
+		return mysql_utils.PareError(err)
 	}
 
 	// Close statment protect run out connection
@@ -70,7 +73,7 @@ func (content *Content) Get() *errors.ErrorRespond {
 
 	result := stmt.QueryRow(content.Id)
 	if err := result.Scan(&content.Id, &content.Title, &content.SubTitle, &content.Content, &content.ContentType, &content.Category, &content.Image, &content.Tags, &content.Author, &content.Status, &content.DateCreated); err != nil {
-		mysql_utils.PareError(err)
+		return mysql_utils.PareError(err)
 	}
 
 	return nil
