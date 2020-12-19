@@ -1,6 +1,8 @@
 package users
 
 import (
+	"fmt"
+
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	date_utils "github.com/psinthorn/gogolang.co/utils/date"
@@ -8,13 +10,14 @@ import (
 )
 
 const (
-	indexUniqueEmail    = "email_UNIQUE"
-	queryInsertUser     = "INSERT INTO USERS(first_name, last_name, email, avatar, status, date_created) VALUES(?,?,?,?,?,?);"
-	queryGetAllUsers    = "SELECT * FROM users ORDER BY id DESC"
-	queryGetUserById    = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users WHERE id = ?"
-	queryUpdateUserById = "UPDATE users SET first_name=?, last_name=?, email=?, avatar=?, status=? WHERE id=?;"
-	queryDeleteUserById = "DELETE FROM users WHERE id=?"
-	errorNoRows         = "no rows in result set"
+	indexUniqueEmail      = "email_UNIQUE"
+	queryInsertUser       = "INSERT INTO USERS(first_name, last_name, email, avatar, status, date_created) VALUES(?,?,?,?,?,?);"
+	queryGetAllUsers      = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users ORDER BY id DESC"
+	queryGetUserById      = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users WHERE id = ?"
+	queryUpdateUserById   = "UPDATE users SET first_name=?, last_name=?, email=?, avatar=?, status=? WHERE id=?;"
+	queryDeleteUserById   = "DELETE FROM users WHERE id=?"
+	errorNoRows           = "no rows in result set"
+	queryFindUserByStatus = "SELECT id, first_name, last_name, email, avatar, date_created, status FROM users WHERE status=?"
 )
 
 var (
@@ -61,29 +64,29 @@ func GetAll() ([]User, *errors.ErrorRespond) {
 	}
 	defer stmt.Close()
 
-	results, err := stmt.Query()
+	rows, err := stmt.Query()
 	if err != nil {
 		return nil, mysql_utils.PareError(err)
 	}
-	defer results.Close()
+	defer rows.Close()
 	// fmt.Println(results)
 	user := User{}
-	allUsers := []User{}
+	results := []User{}
 
-	for results.Next() {
-		err := results.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.Status, &user.DateCreated)
+	for rows.Next() {
+		err := rows.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.Status, &user.DateCreated)
 		if err != nil {
 			return nil, mysql_utils.PareError(err)
 		}
-		allUsers = append(allUsers, user)
+		results = append(results, user)
 	}
 
 	// if results == 0 then return err not found
-	if len(allUsers) == 0 {
+	if len(results) == 0 {
 		return nil, errors.NewNotFoundError("No user found")
 	}
 	// Retrun results to request
-	return allUsers, nil
+	return results, nil
 }
 
 // Get user by id from database
@@ -135,4 +138,32 @@ func (user *User) Delete() *errors.ErrorRespond {
 		return mysql_utils.PareError(err)
 	}
 	return nil
+}
+
+func FindUserByStatus(status string) ([]User, *errors.ErrorRespond) {
+	stmt, err := mysql_db.Client.Prepare(queryFindUserByStatus)
+	if err != nil {
+		return nil, mysql_utils.PareError(err)
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(status)
+	if err != nil {
+		return nil, mysql_utils.PareError(err)
+	}
+	defer rows.Close()
+
+	results := make([]User, 0)
+	for rows.Next() {
+		var user User
+		if err := rows.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
+			return nil, mysql_utils.PareError(err)
+		}
+		results = append(results, user)
+	}
+
+	if len(results) == 0 {
+		return nil, errors.NewNotFoundError(fmt.Sprintf("no users matching status %s", status))
+	}
+	return results, nil
 }

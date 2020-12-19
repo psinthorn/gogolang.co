@@ -12,6 +12,7 @@ type User struct {
 	LastName    string `json:"last_name"`
 	Email       string `json:"email"`
 	Avatar      string `json: "avatar"`
+	password    string `json: "-"`
 	Status      string `json:"status"`
 	DateCreated string `json: "date_created"`
 }
