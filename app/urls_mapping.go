@@ -18,7 +18,7 @@ func urlsMapping() {
 	// Index: API
 	// router.GET("/ping", controllers.Ping.Pong)
 	router.POST("/users", users.Create)
-	router.GET("/users", users.GetAll)
+	router.GET("/allusers", users.GetAll)
 	router.GET("/users/:id", users.Get)
 	router.PATCH("/users/:id", users.Update)
 	router.PUT("/users/:id", users.Update)
