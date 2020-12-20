@@ -12,7 +12,7 @@ type User struct {
 	LastName    string `json:"last_name"`
 	Email       string `json:"email"`
 	Avatar      string `json: "avatar"`
-	password    string `json: "-"`
+	Password    string `json: "-"`
 	Status      string `json:"status"`
 	DateCreated string `json: "date_created"`
 }
@@ -34,5 +34,10 @@ func (user *User) Validate() *errors.ErrorRespond {
 	if user.Email == "" {
 		return errors.NewBadRequestError("Invalid Email Address")
 	}
+	user.Password = strings.TrimSpace(user.Password)
+	if user.Password == "" {
+		return errors.NewBadRequestError("Password can not be an empty")
+	}
+
 	return nil
 }

@@ -5,10 +5,21 @@ import (
 
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	"github.com/psinthorn/gogolang.co/domains/users"
+	date_utils "github.com/psinthorn/gogolang.co/utils/date"
 )
 
 func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 
+	if err := user.Validate(); err != nil {
+		return nil, err
+	}
+
+	// set user date created
+	// use standard time zone
+	// for Thailand need to +7 from UTC
+	// now := time.Now().UTC()
+	// user.DateCreated = now.Format("2006-01-02T15:04:05Z")
+	user.DateCreated = date_utils.GetNowDbDateLayout()
 	if err := user.Save(); err != nil {
 		return nil, err
 	}
@@ -94,7 +105,8 @@ func DeleteUser(userId int64) *errors.ErrorRespond {
 	return user.Delete()
 }
 
-func FindByStatus(status string) ([]users.User, *errors.ErrorRespond) {
-	userDao := &users.User{}
-	return userDao.FindUserByStatus(status)
+func Search(status string) ([]users.User, *errors.ErrorRespond) {
+
+	return users.FinduserByStatus(status)
+
 }
