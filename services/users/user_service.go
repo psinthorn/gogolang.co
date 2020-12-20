@@ -5,6 +5,7 @@ import (
 
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	"github.com/psinthorn/gogolang.co/domains/users"
+	"github.com/psinthorn/gogolang.co/utils/crypto_utils"
 	date_utils "github.com/psinthorn/gogolang.co/utils/date"
 )
 
@@ -20,6 +21,7 @@ func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 	// now := time.Now().UTC()
 	// user.DateCreated = now.Format("2006-01-02T15:04:05Z")
 	user.DateCreated = date_utils.GetNowDbDateLayout()
+	user.Password = crypto_utils.Md5Encrypt(user.Password)
 	if err := user.Save(); err != nil {
 		return nil, err
 	}
