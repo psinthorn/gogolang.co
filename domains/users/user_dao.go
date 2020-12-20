@@ -5,13 +5,12 @@ import (
 
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
-	date_utils "github.com/psinthorn/gogolang.co/utils/date"
 	mysql_utils "github.com/psinthorn/gogolang.co/utils/mysql"
 )
 
 const (
 	indexUniqueEmail      = "email_UNIQUE"
-	queryInsertUser       = "INSERT INTO USERS(first_name, last_name, email, avatar, status, date_created) VALUES(?,?,?,?,?,?);"
+	queryInsertUser       = "INSERT INTO USERS(first_name, last_name, email, password, avatar, status, date_created) VALUES(?,?,?,?,?,?,?);"
 	queryGetAllUsers      = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users ORDER BY id DESC"
 	queryGetUserById      = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users WHERE id = ?"
 	queryUpdateUserById   = "UPDATE users SET first_name=?, last_name=?, email=?, avatar=?, status=? WHERE id=?;"
@@ -34,13 +33,7 @@ func (user *User) Save() *errors.ErrorRespond {
 	}
 	defer stmt.Close()
 
-	// set user date created
-	// use standard time zone
-	// for Thailand need to +7 from UTC
-	// now := time.Now().UTC()
-	// user.DateCreated = now.Format("2006-01-02T15:04:05Z")
-	user.DateCreated = date_utils.GetNowString()
-	insertResult, err := stmt.Exec(user.FirstName, user.LastName, user.Email, user.Avatar, user.Status, user.DateCreated)
+	insertResult, err := stmt.Exec(user.FirstName, user.LastName, user.Email, user.Password, user.Avatar, user.Status, user.DateCreated)
 
 	if err != nil {
 		return mysql_utils.PareError(err)
@@ -140,7 +133,7 @@ func (user *User) Delete() *errors.ErrorRespond {
 	return nil
 }
 
-func FindUserByStatus(status string) ([]User, *errors.ErrorRespond) {
+func FinduserByStatus(status string) ([]User, *errors.ErrorRespond) {
 	stmt, err := mysql_db.Client.Prepare(queryFindUserByStatus)
 	if err != nil {
 		return nil, mysql_utils.PareError(err)

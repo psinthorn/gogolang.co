@@ -23,6 +23,7 @@ func urlsMapping() {
 	router.PATCH("/users/:id", users.Update)
 	router.PUT("/users/:id", users.Update)
 	router.DELETE("/users/:id", users.Delete)
+	router.GET("/internal/users/search", users.Search)
 
 	router.POST("/categories", categories.Create)
 	router.GET("/categories", categories.GetAll)
