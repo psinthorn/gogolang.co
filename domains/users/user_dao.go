@@ -49,7 +49,7 @@ func (user *User) Save() *errors.ErrorRespond {
 }
 
 // Get all users from database
-func GetAll() ([]User, *errors.ErrorRespond) {
+func (user *User) GetAll() ([]User, *errors.ErrorRespond) {
 	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
 	stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
 	if err != nil {
@@ -63,10 +63,10 @@ func GetAll() ([]User, *errors.ErrorRespond) {
 	}
 	defer rows.Close()
 	// fmt.Println(results)
-	user := User{}
-	results := []User{}
 
+	results := []User{}
 	for rows.Next() {
+		var user User
 		err := rows.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.Status, &user.DateCreated)
 		if err != nil {
 			return nil, mysql_utils.PareError(err)
@@ -133,7 +133,7 @@ func (user *User) Delete() *errors.ErrorRespond {
 	return nil
 }
 
-func FinduserByStatus(status string) ([]User, *errors.ErrorRespond) {
+func (user *User) FindUserByStatus(status string) ([]User, *errors.ErrorRespond) {
 	stmt, err := mysql_db.Client.Prepare(queryFindUserByStatus)
 	if err != nil {
 		return nil, mysql_utils.PareError(err)
