@@ -9,7 +9,22 @@ import (
 	date_utils "github.com/psinthorn/gogolang.co/utils/date"
 )
 
-func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
+var (
+	UserService userServiceInterface = &userService{}
+)
+
+type userService struct{}
+
+type userServiceInterface interface {
+	CreateUser(users.User) (*users.User, *errors.ErrorRespond)
+	GetAllUser() (users.Users, *errors.ErrorRespond)
+	GetUser(int64) (*users.User, *errors.ErrorRespond)
+	UpdateUser(bool, users.User) (*users.User, *errors.ErrorRespond)
+	DeleteUser(int64) *errors.ErrorRespond
+	SearchUser(string) (users.Users, *errors.ErrorRespond)
+}
+
+func (u *userService) CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 
 	if err := user.Validate(); err != nil {
 		return nil, err
@@ -29,16 +44,13 @@ func CreateUser(user users.User) (*users.User, *errors.ErrorRespond) {
 	return &user, nil
 }
 
-func GetAllUser() ([]users.User, *errors.ErrorRespond) {
+func (u *userService) GetAllUser() (users.Users, *errors.ErrorRespond) {
 
-	allUsers, err := users.GetAll()
-	if err != nil {
-		return nil, err
-	}
-	return allUsers, nil
+	dao := &users.User{}
+	return dao.GetAll()
 }
 
-func GetUser(userId int64) (*users.User, *errors.ErrorRespond) {
+func (u *userService) GetUser(userId int64) (*users.User, *errors.ErrorRespond) {
 	result := &users.User{Id: userId}
 
 	if err := result.Get(); err != nil {
@@ -47,8 +59,8 @@ func GetUser(userId int64) (*users.User, *errors.ErrorRespond) {
 	return result, nil
 }
 
-func UpdateUser(isPartial bool, user users.User) (*users.User, *errors.ErrorRespond) {
-	currentUser, err := GetUser(user.Id)
+func (u *userService) UpdateUser(isPartial bool, user users.User) (*users.User, *errors.ErrorRespond) {
+	currentUser, err := UserService.GetUser(user.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -102,13 +114,13 @@ func UpdateUser(isPartial bool, user users.User) (*users.User, *errors.ErrorResp
 	return currentUser, nil
 }
 
-func DeleteUser(userId int64) *errors.ErrorRespond {
+func (u *userService) DeleteUser(userId int64) *errors.ErrorRespond {
 	user := &users.User{Id: userId}
 	return user.Delete()
 }
 
-func Search(status string) ([]users.User, *errors.ErrorRespond) {
-
-	return users.FinduserByStatus(status)
+func (u *userService) SearchUser(status string) (users.Users, *errors.ErrorRespond) {
+	dao := &users.User{}
+	return dao.FindUserByStatus(status)
 
 }

@@ -17,6 +17,8 @@ type User struct {
 	DateCreated string `json: "date_created"`
 }
 
+type Users []User
+
 //
 // จัดการข้อมูล และตรวจสอบสอบข้อมูลให้ถูกต้อง โดยการสร้าง Method ให้้กับ User Model
 //
