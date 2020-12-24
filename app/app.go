@@ -13,5 +13,7 @@ func StartApp(port string) {
 	router.LoadHTMLGlob("views/*/*.html")
 	router.Static("/assets/", "./assets/")
 	urlsMapping()
+
+	logger.Info("Start Application...")
 	router.Run(":" + configs.ServerPort.PortSelector(port))
 }
