@@ -26,7 +26,10 @@ func PareError(err error) *errors.ErrorRespond {
 
 	switch mysqlErr.Number {
 	case 1062:
-		return errors.NewBadRequestError("invalid data or duplicate data")
+		return errors.NewBadRequestError("invalid data or duplicate data entry")
+	case 1064:
+		return errors.NewBadRequestError("error on statment preparing")
 	}
+
 	return errors.NewInternalServerError("error process request")
 }
