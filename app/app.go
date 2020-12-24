@@ -3,6 +3,8 @@ package app
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/psinthorn/gogolang.co/configs"
+
+	"github.com/psinthorn/gogolang.co/logger"
 )
 
 var (

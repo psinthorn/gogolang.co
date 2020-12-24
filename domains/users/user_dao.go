@@ -6,6 +6,8 @@ import (
 	mysql_db "github.com/psinthorn/gogolang.co/datasources/mysql/users_db"
 	"github.com/psinthorn/gogolang.co/domains/errors"
 	mysql_utils "github.com/psinthorn/gogolang.co/utils/mysql"
+
+	"github.com/psinthorn/gogolang.co/logger"
 )
 
 const (
@@ -29,19 +31,21 @@ func (user *User) Save() *errors.ErrorRespond {
 	// prepare statment for save new user to database
 	stmt, err := mysql_db.Client.Prepare(queryInsertUser)
 	if err != nil {
+		logger.Error("Error on preparing get user statment", err)
 		return mysql_utils.PareError(err)
 	}
 	defer stmt.Close()
 
 	insertResult, err := stmt.Exec(user.FirstName, user.LastName, user.Email, user.Password, user.Avatar, user.Status, user.DateCreated)
-
 	if err != nil {
+		logger.Error("Error on insert user to database", err)
 		return mysql_utils.PareError(err)
 	}
 
 	//user.DateCreated = date_utils.GetNow().Format("2006-01-02T15:04:05Z")
 	userId, err := insertResult.LastInsertId()
 	if err != nil {
+		logger.Error("Error on try to get latest inserted user", err)
 		return mysql_utils.PareError(err)
 	}
 	user.Id = userId
@@ -53,12 +57,14 @@ func (user *User) GetAll() ([]User, *errors.ErrorRespond) {
 	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
 	stmt, err := mysql_db.Client.Prepare(queryGetAllUsers)
 	if err != nil {
+		logger.Error("Error on preparing get user statment", err)
 		return nil, mysql_utils.PareError(err)
 	}
 	defer stmt.Close()
 
 	rows, err := stmt.Query()
 	if err != nil {
+		logger.Error("Error on query user statment", err)
 		return nil, mysql_utils.PareError(err)
 	}
 	defer rows.Close()
@@ -69,6 +75,7 @@ func (user *User) GetAll() ([]User, *errors.ErrorRespond) {
 		var user User
 		err := rows.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.Status, &user.DateCreated)
 		if err != nil {
+			logger.Error("Error on scan rows to user struct", err)
 			return nil, mysql_utils.PareError(err)
 		}
 		results = append(results, user)
@@ -88,12 +95,14 @@ func (user *User) Get() *errors.ErrorRespond {
 	// ใช้ Prepare เพื่อตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่งไปทำการ  process ที่ server เพื่อลดการทำงาน process ที่ฝั่ง server
 	stmt, err := mysql_db.Client.Prepare(queryGetUserById)
 	if err != nil {
+		logger.Error("Error on preparing get user statment", err)
 		return mysql_utils.PareError(err)
 	}
 	defer stmt.Close()
 
 	result := stmt.QueryRow(user.Id)
 	if err := result.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.Status, &user.DateCreated); err != nil {
+		logger.Error("Error on scan rows to user struct", err)
 		return mysql_utils.PareError(err)
 	}
 
@@ -103,6 +112,7 @@ func (user *User) Get() *errors.ErrorRespond {
 func (user *User) Update() *errors.ErrorRespond {
 	stmt, err := mysql_db.Client.Prepare(queryUpdateUserById)
 	if err != nil {
+		logger.Error("Error on preparing update user statment", err)
 		return mysql_utils.PareError(err)
 		//return errors.NewInternalServerError(err.Error())
 	}
@@ -110,6 +120,7 @@ func (user *User) Update() *errors.ErrorRespond {
 
 	_, err = stmt.Exec(user.FirstName, user.LastName, user.Email, user.Avatar, user.Status, user.Id)
 	if err != nil {
+		logger.Error("Error on query update user statment", err)
 		return mysql_utils.PareError(err)
 	}
 	// if err != nil {
@@ -121,6 +132,7 @@ func (user *User) Update() *errors.ErrorRespond {
 func (user *User) Delete() *errors.ErrorRespond {
 	stmt, err := mysql_db.Client.Prepare(queryDeleteUserById)
 	if err != nil {
+		logger.Error("Error on preparing delete user statment", err)
 		return mysql_utils.PareError(err)
 		//return errors.NewInternalServerError(err.Error())
 	}
@@ -128,6 +140,7 @@ func (user *User) Delete() *errors.ErrorRespond {
 
 	_, err = stmt.Exec(user.Id)
 	if err != nil {
+		logger.Error("Error on execute delete user statment", err)
 		return mysql_utils.PareError(err)
 	}
 	return nil
@@ -136,12 +149,14 @@ func (user *User) Delete() *errors.ErrorRespond {
 func (user *User) FindUserByStatus(status string) ([]User, *errors.ErrorRespond) {
 	stmt, err := mysql_db.Client.Prepare(queryFindUserByStatus)
 	if err != nil {
+		logger.Error("Error on preparing find user statment", err)
 		return nil, mysql_utils.PareError(err)
 	}
 	defer stmt.Close()
 
 	rows, err := stmt.Query(status)
 	if err != nil {
+		logger.Error("Error on execute find user statment", err)
 		return nil, mysql_utils.PareError(err)
 	}
 	defer rows.Close()
@@ -150,6 +165,7 @@ func (user *User) FindUserByStatus(status string) ([]User, *errors.ErrorRespond)
 	for rows.Next() {
 		var user User
 		if err := rows.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.Avatar, &user.DateCreated, &user.Status); err != nil {
+			logger.Error("Error on scan rows to user struct", err)
 			return nil, mysql_utils.PareError(err)
 		}
 		results = append(results, user)
