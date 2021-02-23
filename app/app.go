@@ -16,6 +16,6 @@ func StartApp(port string) {
 	router.Static("/assets/", "./assets/")
 	urlsMapping()
 
-	logger.Info("Start Application...")
+	logger.Info("Start GoGolang Web Application...")
 	router.Run(":" + configs.ServerPort.PortSelector(port))
 }
