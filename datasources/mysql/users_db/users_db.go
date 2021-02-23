@@ -22,8 +22,6 @@ package mysql_db
 
 import (
 	"database/sql"
-	"fmt"
-	"log"
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -51,27 +49,27 @@ var (
 )
 
 func init() {
-	fmt.Println("host name is")
-	hostName, _ := os.Hostname()
-	fmt.Println(hostName)
+	// fmt.Println("host name is")
+	// hostName, _ := os.Hostname()
+	// fmt.Println(hostName)
 
-	if hostName == "Apple-Macintosh-2.local" {
-		// for dev only
-		dataSourceName = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", "root", "1980#$Life", "127.0.0.1", "gogolang")
+	// if hostName == "Apple-Macintosh-2.local" {
+	// 	// for dev only
+	// 	dataSourceName = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", "root", "1980#$Life", "127.0.0.1", "gogolang")
 
-	} else {
-		// for production
-		dataSourceName = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", username, password, mysql_host, mysql_schema)
+	// } else {
+	// 	// for production
+	// 	dataSourceName = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", username, password, mysql_host, mysql_schema)
 
-	}
+	// }
 
-	var err error
-	Client, err = sql.Open("mysql", dataSourceName)
-	if err != nil {
-		panic(err)
-	}
-	if err = Client.Ping(); err != nil {
-		panic(err)
-	}
-	log.Printf("mySQL connect successfully on %s", hostName)
+	// var err error
+	// Client, err = sql.Open("mysql", dataSourceName)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// if err = Client.Ping(); err != nil {
+	// 	panic(err)
+	// }
+	// log.Printf("mySQL connect successfully on %s", hostName)
 }

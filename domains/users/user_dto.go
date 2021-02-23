@@ -7,14 +7,15 @@ import (
 )
 
 type User struct {
-	Id          int64  `json:"id"`
-	FirstName   string `json:"first_name"`
-	LastName    string `json:"last_name"`
-	Email       string `json:"email"`
-	Avatar      string `json: "avatar"`
-	Password    string `json: "password"`
-	Status      string `json:"status"`
-	DateCreated string `json: "date_created"`
+	Id          int64  `json:"id" bson:"id"`
+	FirstName   string `json:"first_name" bson:"first_name"`
+	LastName    string `json:"last_name" bson:"last_name"`
+	Email       string `json:"email" bson:"email"`
+	Avatar      string `json: "avatar" bson: "avatar"`
+	Password    string `json: "password" bson: "password"`
+	Status      string `json:"status" bson:"status"`
+	DateCreated string `json: "date_created" bson: "date_created"`
+	// DateUpdated string `json: "date_created" bson: "date_created"`
 }
 
 type Users []User
@@ -28,6 +29,7 @@ type Users []User
 // จัดการจัดช่องว่างหน้าและหลังอีเมล์
 // ทำให้อีเมล์เป็นอักษรตัวเล็ก
 
+// Validate จะทำการตรวจสอบความถูกต้องของข้อมูล
 func (user *User) Validate() *errors.ErrorRespond {
 	user.FirstName = strings.TrimSpace(user.FirstName)
 	user.LastName = strings.TrimSpace(user.LastName)
