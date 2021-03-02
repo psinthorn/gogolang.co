@@ -4,6 +4,13 @@
 > ยินดีต้อนรับสู่ GoGolang.co ซึ่งเป็นโครงการ "การเรียนรู้การสร้างเว็บแอพพลิเคชั่นด้วยภาษาโก" เว็บไซร์อยู่ในช่วงการจัดทำและพัฒนาด้วยภาษาโก (golang) โดยมีเป้าหมายเพื่อเรียนรู้และให้ความรู้ในการพัฒนา เว็บแอพพลิเคชั่นด้วยภาษาโก ตั้งแต่เบื้องต้นจนถึงการนำขึ้นโฮสในเซิร์ฟเวอร์แบบต่างๆ คุณสามารถเข้ามาเยี่ยมชมเว็บไซร์ของเราได้ทุกวันเพื่อติดตามความเคลื่อนไหวเปลี่ยแปลงของเว็บไซร์ คุณจะได้เห็นทิศทางการพัฒนาและลำดับขั้นตอนในการพัฒนาที่ต่อเนื่อง โดยเราจะพยายามเขียนบทความ ในทุกช่วงทุกขั้นตอนในระหว่างการพัฒนาเว็บไซร์แห่งนี้ โดยร่วมถึง การพบเจอปัญหา และการแก้ปัญหา โดยหวังว่าจะเป็นประโยชน์ต่อผู้เยียมชม ที่เริ่มเรียนรู้ภาษาโกเพื่อพัฒนาต่อยอดต่อไป. :)
 
 > GoGolang.co I used it as a learning webapplication development from beginner to deployment by golang following MVC microserivces structure. And i will try to write every details on the way of my learning. May it can benefit to someone that start to learn golang web development like me. Go for golang and enjoys with Go :)
+> 
+
+# สารบัญ
+> - ขั้นที่ 1 สร้าง Folder และ Start Server กันก่อน
+> - ขั้นที่ 2 เชื่อมต่อฐานข้อมูล
+> - ขั้นที่ 3 CRUD
+
 
 # มาเริ่มกันเลย -> Getting Start 
 
@@ -15,13 +22,14 @@
 >   - 1.1 Git เตรียมและจัดเก็บงานที่ github.com 
 >   - 1.2 จัดการ package ด้วย go module
 > - 2. สร้าง function สำหรับ Start Server 
+> - - 2.1 สร้าง Function สำหรับ เลือก Server Port อัตโนมัติ ระหว่าง Dev และ Production Enverontment
 > - 3. กำหนด Folder สำหรับ HTML Template (ฺBasic)
 > - 4. กำหนด Folder สำหรับ Static Assets ต่างๆ เช่น css, images, js เป็นต้น
 > - 5. ติดตั้ง Bootstrap, fonts-awesome
-> - 5. ติดตั้ง node-sass สำหรับ sass compileer เพื่อเพิ่มความยืดหยุ่นให้การจัดการ css 
-> - 6. สร้าง Function สำหรับ เลือก Server Port อัตโนมัติ ระหว่าง Dev และ Production Enverontment
+> - 6. ติดตั้ง node-sass สำหรับ sass compiler เพื่อเพิ่มความยืดหยุ่นให้การจัดการ css 
 > - 7. ทดสอบ Run Server
 > - 8. Push to github
+
 
 ## โครงสร้างโฟเดอร์และไฟล์ระบบ MVC Microservices
 ### Structure MVC Microservices
@@ -149,7 +157,6 @@ go mod init github.com/your_github_username/your_repo_name
 ### Template Nested Template
 
 ## 4. กำหนด Folder สำหรับ Static Assets
-### Link Bootstrap, Fonts-Awesome and Google Fonts
 ### install node-sass and jquery  
 > หมายเหตุ: ต้องทำการติดตั้ง node ก่อนนะครับจึงจะทำขั้นตอนนี้ได้ครับ
 ```
@@ -157,9 +164,10 @@ go mod init github.com/your_github_username/your_repo_name
     $ npm install node-sass --save-dev
     $ npm install jquery --save
 ```
-#### Add script command to compile sass by add line below package.json and auto watching and auto compile when make any change to files.
+## 5. Link Bootstrap, Fonts-Awesome and Google Fonts
 
-#### เพิ่ม node-sass เพื่อช่วยเพิ่มประสิทธิภาพและยืดหยุ่นในการเขียน css รวมถึงการคอมพลายแบบอัตโนมัติเมื่อมีการเขียนเพิ่มหรือลดโค้ด โดยใช้คำสั่ง -w 
+## 6. Add script command to compile sass by add line below package.json and auto watching and auto compile when make any change to files.
+### เพิ่ม node-sass เพื่อช่วยเพิ่มประสิทธิภาพและยืดหยุ่นในการเขียน css รวมถึงการคอมพลายแบบอัตโนมัติเมื่อมีการเขียนเพิ่มหรือลดโค้ด โดยใช้คำสั่ง -w 
 
 ```
     "scripts": {
@@ -167,7 +175,6 @@ go mod init github.com/your_github_username/your_repo_name
     }
 ```
 #### Run compile command during development 
-
 #### คำสั่งในการคอมพลาย sass ไปเป็น css 
 
 ```
@@ -175,15 +182,24 @@ go mod init github.com/your_github_username/your_repo_name
 
 ```
 
+## 7.  Start Server
+#### ทดสอบสั่งให้ http server ทำงาน
+
+```
+    $ go run main.go
+
+```
+
+
 ## 8. Push to github account 
 > จัดเก็บไฟล์ ที่ github.com account
+
 
 
 
 ## Database Section
 
 ### เชื่อมต่อฐานข้อมูล - Connect to databse
-
 folder structure for datasource
     -----
         |- datasource
