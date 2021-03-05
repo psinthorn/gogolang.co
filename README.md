@@ -127,15 +127,20 @@
 ### 1.2 ใช้ Go Module ในการจัดการ Package ใน Project
 ### How to init Go Module
 
+รูปแบบการ init go module
 ```
-go mod init github.com/your_github_username/your_repo_name
+    go mod init github.com/your_github_username/your_repo_name
 
+```
+
+ตัวอย่างในกรณีของผมคือ 
+```
+    go mod init github.com/psinthorn/gogolang.co 
 ```
 
 ## 2. เริ่มต้นสร้าง Http Server โดย Gin-Gonic
 ### สร้าง Function สำหรับ เลือก server port อัตโนมัติ
 ### We're use Getenv to check and get current server port running by using function below.
-
 
 ```golang
 // ชื่อไฟล์ server_port_selector.go
@@ -150,9 +155,14 @@ go mod init github.com/your_github_username/your_repo_name
 ```
 
 ### Start Server
+### คำสั่งสำหรับให้ Server เริ่มทำงาน
 ```
-    $ go run main.go
+    go run main.go
 
+```
+### หรือหากสั่งผ่าน Makefile
+```
+    make start
 ```
 
 ## 3. กำหนด Folder สำหรับ HTML Template
@@ -186,18 +196,23 @@ go mod init github.com/your_github_username/your_repo_name
 ```
 
 ## 7.  Start Server
-#### ทดสอบสั่งให้ http server ทำงาน
+### ทดสอบสั่งให้ http server ทำงาน
 
 ```
     $ go run main.go
 
 ```
+### หรือหากสั่งผ่าน Makefile
+```
+    make start
+```
 
 
 ## 8. Push to github account 
 > จัดเก็บไฟล์ ที่ github.com account
-
-
+```
+    git push 
+```
 
 
 ## Database Section
@@ -208,10 +223,19 @@ folder structure for datasource
         |- datasource
             |- mysql
                 |- users_db.go
+            |- mogodb
             |- postgres
             |- ...
 
 ### Connect to MySql
+```
+    func init() {
+        
+        dataSourceName := fmt.Printf("%s:%s@tcp(%s)/%s?charset=utf8", "root", "root", "127.0.0.1:3306", "users_db")
+    }
+```
+
+### Connect to MongoDB
 ```
     func init() {
         
