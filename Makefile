@@ -18,7 +18,7 @@ cassandra:
 
 # To access terminal for run bash command in docker 
 cassandraterminal:
-	docker exec -it cassandra4 bash
+	docker exec -it cassandra4 bash && cqlsh
 
 # Run cassandra sql command 
 cqlsh:

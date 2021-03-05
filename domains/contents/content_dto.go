@@ -15,7 +15,7 @@ type Content struct {
 	Category    string `json: "category" bson: "category"`
 	Image       string `json: "image" bson: "image"`
 	Tags        string `json: "tags" bson: "tags"`
-	Author      string `json: "content" bson: "content"`
+	Author      string `json: "author" bson: "author"`
 	Status      string `json: "status" bson: "status"`
 	DateCreated string `json: "date_created" bson: "date_created"`
 }

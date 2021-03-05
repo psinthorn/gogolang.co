@@ -267,6 +267,42 @@ $ echo $mysql_users_username
 - PUT needs all fields data input to update otherwise will update no data input fileds to blank.
 - PATCH will update only a field that have data input and remain other fiedls data as the same.
 
+## Database 
+### create users table
+```
+CREATE TABLE `gogolang`.`users` (
+  `id` INT NOT NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `avatar` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `status` VARCHAR(45) NULL,
+  `datecreated` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  ```
+
+### How to change or update column properties in mysql 
+```
+ALTER TABLE `gogolang`.`users` 
+CHANGE COLUMN `email` `email` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `password` `password` VARCHAR(45) NOT NULL ;
+```
+
+### create contents table
+```
+CREATE TABLE `gogolang`.`contents` (
+  `id` INT NOT NULL,
+  `title` VARCHAR(45) NULL,
+  `sub_title` VARCHAR(45) NULL,
+  `content` VARCHAR(45) NULL,
+  `content_type` VARCHAR(45) NULL,
+  `` VARCHAR(45) NULL,
+  `status` VARCHAR(45) NULL,
+  `datecreated` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  ```
+
 ## Golang Online Course Suggestion
 
 ### Beginner
