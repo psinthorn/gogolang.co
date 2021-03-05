@@ -18,7 +18,7 @@ const (
 	queryUpdateUserById   = "UPDATE users SET first_name=?, last_name=?, email=?, avatar=?, status=? WHERE id=?;"
 	queryDeleteUserById   = "DELETE FROM users WHERE id=?"
 	errorNoRows           = "no rows in result set"
-	queryFindUserByStatus = "SELECT id, first_name, last_name, email, avatar, date_created, status FROM users WHERE status=?"
+	queryFindUserByStatus = "SELECT id, first_name, last_name, email, avatar, status, date_created FROM users WHERE status=?"
 )
 
 var (
