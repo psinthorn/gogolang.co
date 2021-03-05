@@ -289,6 +289,20 @@ CHANGE COLUMN `email` `email` VARCHAR(45) NOT NULL ,
 CHANGE COLUMN `password` `password` VARCHAR(45) NOT NULL ;
 ```
 
+### create contents table
+```
+CREATE TABLE `gogolang`.`contents` (
+  `id` INT NOT NULL,
+  `title` VARCHAR(45) NULL,
+  `sub_title` VARCHAR(45) NULL,
+  `content` VARCHAR(45) NULL,
+  `content_type` VARCHAR(45) NULL,
+  `` VARCHAR(45) NULL,
+  `status` VARCHAR(45) NULL,
+  `datecreated` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  ```
+
 ## Golang Online Course Suggestion
 
 ### Beginner
